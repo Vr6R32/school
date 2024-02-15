@@ -18,7 +18,7 @@ class SchoolServiceImpl implements SchoolService {
     @Override
     public SchoolResponse createNewSchool(String name, BigDecimal hourPrice) {
 
-        schoolRepository.findByName(name)
+        schoolRepository.findByNameIgnoreCase(name)
                 .ifPresent(existingSchool -> {
                     throw new SchoolException("SCHOOL WITH NAME " + "[" + name + "]" + " ALREADY EXISTS");
                 });
@@ -34,7 +34,7 @@ class SchoolServiceImpl implements SchoolService {
 
     @Override
     public SchoolResponse getSchoolByName(String name) {
-        SchoolDTO school = schoolRepository.findByName(name)
+        SchoolDTO school = schoolRepository.findByNameIgnoreCase(name)
                 .map(SchoolMapper::mapSchoolToDTO)
                 .orElseThrow(() -> new SchoolException("SCHOOL WITH NAME " + "[" + name + "]" + " DOESNT EXISTS"));
         return new SchoolResponse("SCHOOL FOUND", HttpStatus.OK, school);

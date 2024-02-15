@@ -11,6 +11,6 @@ import java.util.UUID;
 
 public interface SchoolRepository extends JpaRepository<School, UUID> {
 
-    Optional<School> findByName(String name);
+    Optional<School> findByNameIgnoreCase(String name);
 
 }

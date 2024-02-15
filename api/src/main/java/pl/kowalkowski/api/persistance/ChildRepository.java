@@ -17,6 +17,6 @@ public interface ChildRepository extends JpaRepository<Child, UUID> {
            " LEFT JOIN FETCH c.school" +
            " LEFT JOIN FETCH c.parent" +
            " WHERE c.lastname = :lastname AND c.birthDay = :birthDay")
-    Optional<Child> findByLastnameAndBirthDay(String lastname, LocalDate birthDay);
+    Optional<Child> findByLastnameIgnoreCaseAndBirthDay(String lastname, LocalDate birthDay);
 
 }

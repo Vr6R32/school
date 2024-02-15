@@ -49,6 +49,7 @@
                 entry_date TIMESTAMP(0) NOT NULL,
                 exit_date TIMESTAMP(0) NOT NULL,
                 CONSTRAINT entry_exit_dates CHECK (entry_date &lt;= exit_date),
+                CONSTRAINT unique_attendance_entry UNIQUE (child_id, entry_date, exit_date),
                 FOREIGN KEY (child_id) REFERENCES childs (id)
             );
         </sql>

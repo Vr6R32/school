@@ -15,7 +15,7 @@ public class SchoolFacadeConfiguration {
     private final SchoolRepository schoolRepository;
 
     @Bean
-    public SchoolFacade schoolFacade(){
+    public SchoolFacade schoolFacade() {
         SchoolService schoolService = SchoolServiceFactory.createSchoolService(schoolRepository);
         return new SchoolFacade(schoolService);
     }

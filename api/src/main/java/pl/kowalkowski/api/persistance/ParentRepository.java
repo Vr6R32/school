@@ -11,6 +11,7 @@ import java.util.UUID;
 @Repository
 public interface ParentRepository extends JpaRepository<Parent, UUID> {
 
-    Optional<Parent> findByLastnameAndBirthDay(String lastname, LocalDate birthDay);
+    Optional<Parent> findByLastnameIgnoreCaseAndBirthDay(String lastname, LocalDate birthDay);
+
 
 }

@@ -18,6 +18,7 @@ public class SchoolFacade {
     public SchoolResponse getSchoolByName(String name) {
         return schoolService.getSchoolByName(name);
     }
+
     public School getSchoolById(UUID uuid) {
         return schoolService.getSchoolById(uuid);
     }

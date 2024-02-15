@@ -10,6 +10,7 @@ import pl.kowalkowski.api.facade.SchoolFacade;
 import pl.kowalkowski.api.persistance.ChildRepository;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import static pl.kowalkowski.api.infrastructure.child.ChildMapper.mapChildToDTO;
 
@@ -41,9 +42,16 @@ class ChildServiceImpl implements ChildService {
 
     @Override
     public ChildResponse getChildByLastNameAndBirthDate(String lastname, LocalDate birthday) {
-        ChildDTO child = childRepository.findByLastnameAndBirthDay(lastname, birthday)
+        ChildDTO child = childRepository.findByLastnameIgnoreCaseAndBirthDay(lastname, birthday)
                 .map(ChildMapper::mapChildToDTO)
                 .orElseThrow(() -> new ChildException("CHILD WITH LAST NAME [" + lastname + "] AND BIRTHDAY [" + birthday + "] DOESN'T EXISTS"));
         return new ChildResponse("CHILD FOUND", HttpStatus.OK, child);
     }
+
+    @Override
+    public Child getChildById(UUID uuid) {
+        return childRepository.findById(uuid)
+                .orElseThrow(() -> new ChildException("CHILD WITH ID " + "[" + uuid + "]" + " DOESNT EXISTS"));
+    }
+
 }

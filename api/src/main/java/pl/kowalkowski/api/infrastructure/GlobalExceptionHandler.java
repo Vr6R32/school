@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
         String stringifyErrors = String.join(", ", errors.values());
         return new GlobalExceptionResponse(stringifyErrors, HttpStatus.BAD_REQUEST);
     }
-    
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public GlobalExceptionResponse handleDateParseException(HttpMessageNotReadableException ex) {
@@ -37,6 +37,6 @@ public class GlobalExceptionHandler {
         if (cause instanceof JsonMappingException jsonMappingException && (jsonMappingException.getMessage().contains("LocalDate"))) {
                 return new GlobalExceptionResponse("INVALID DATE FORMAT", HttpStatus.BAD_REQUEST);
         }
-        return new GlobalExceptionResponse("INVALID JSON FORMAT", HttpStatus.BAD_REQUEST);
+        return new GlobalExceptionResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

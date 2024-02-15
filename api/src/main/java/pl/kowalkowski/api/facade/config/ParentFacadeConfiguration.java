@@ -15,7 +15,7 @@ public class ParentFacadeConfiguration {
     private final ParentRepository parentRepository;
 
     @Bean
-    public ParentFacade parentFacade(){
+    public ParentFacade parentFacade() {
         ParentService parentService = ParentServiceFactory.createParentService(parentRepository);
         return new ParentFacade(parentService);
     }

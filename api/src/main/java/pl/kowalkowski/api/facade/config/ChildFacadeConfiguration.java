@@ -19,7 +19,7 @@ public class ChildFacadeConfiguration {
     private final ChildRepository childRepository;
 
     @Bean
-    public ChildFacade childFacade(){
+    public ChildFacade childFacade() {
         ChildService childService = ChildServiceFactory.createChildService(childRepository,schoolFacade,parentFacade);
         return new ChildFacade(childService);
     }

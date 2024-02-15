@@ -31,7 +31,7 @@ class ParentServiceImpl implements ParentService {
 
     @Override
     public ParentResponse getParentByLastNameAndBirthDate(String lastname, LocalDate birthDay) {
-        ParentDTO parent = parentRepository.findByLastnameAndBirthDay(lastname, birthDay)
+        ParentDTO parent = parentRepository.findByLastnameIgnoreCaseAndBirthDay(lastname, birthDay)
                 .map(ParentMapper::mapParentToDTO)
                 .orElseThrow(() -> new ParentException("PARENT WITH LAST NAME [" + lastname + "] AND BIRTHDAY [" + birthDay + "] DOESN'T EXISTS"));
         return new ParentResponse("PARENT FOUND", HttpStatus.OK, parent);
