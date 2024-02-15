@@ -19,8 +19,8 @@ spring:
         generate_statistics: false
         show_sql: false
         hbm2ddl:
-          auto: none
-#            auto: create-drop
+        auto: none
+#       auto: create-drop
 
   banner:
     location: classpath:banner.txt

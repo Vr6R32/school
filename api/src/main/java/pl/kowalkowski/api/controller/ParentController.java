@@ -1,10 +1,8 @@
 package pl.kowalkowski.api.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.kowalkowski.api.facade.ParentFacade;
 import pl.kowalkowski.api.infrastructure.parent.NewParentRequest;
 import pl.kowalkowski.api.infrastructure.parent.ParentResponse;
@@ -19,13 +17,13 @@ public class ParentController {
     private final ParentFacade parentFacade;
 
     @PostMapping
-    public ParentResponse registerNewParent(NewParentRequest request){
+    public ParentResponse registerNewParent(@Valid @RequestBody NewParentRequest request) {
         return parentFacade.registerNewParent(request);
     }
 
     @GetMapping
-    public ParentResponse getParentByLastNameAndBirthDate(String lastname, LocalDate birthDay){
-        return parentFacade.getParentByLastNameAndBirthDate(lastname,birthDay);
+    public ParentResponse getParentByLastNameAndBirthDate(String lastname, LocalDate birthDay) {
+        return parentFacade.getParentByLastNameAndBirthDate(lastname, birthDay);
     }
 
 }

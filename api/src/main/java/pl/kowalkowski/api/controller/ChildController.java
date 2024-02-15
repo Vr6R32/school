@@ -1,10 +1,8 @@
 package pl.kowalkowski.api.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.kowalkowski.api.facade.ChildFacade;
 import pl.kowalkowski.api.infrastructure.child.ChildResponse;
 import pl.kowalkowski.api.infrastructure.child.NewChildRequest;
@@ -19,7 +17,7 @@ public class ChildController {
     private final ChildFacade childFacade;
 
     @PostMapping
-    public ChildResponse registerNewChild(NewChildRequest request){
+    public ChildResponse registerNewChild(@Valid @RequestBody NewChildRequest request){
         return childFacade.registerNewChild(request);
     }
 
