@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="create-parents-table" author="mk">
+        <sql>
+            CREATE TABLE IF NOT EXISTS parents (
+                id UUID PRIMARY KEY,
+                firstname VARCHAR(255) NOT NULL,
+                lastname VARCHAR(255) NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="create-schools-table" author="mk">
+        <sql>
+            CREATE TABLE IF NOT EXISTS schools (
+                id UUID PRIMARY KEY,
+                name VARCHAR(255) UNIQUE NOT NULL,
+                hour_price DECIMAL(10, 2) NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="create-childs-table" author="mk">
+        <sql>
+            CREATE TABLE IF NOT EXISTS childs (
+                id UUID PRIMARY KEY,
+                firstname VARCHAR(255) NOT NULL,
+                lastname VARCHAR(255) NOT NULL,
+                school_id UUID,
+                parent_id UUID,
+                FOREIGN KEY (school_id) REFERENCES schools (id),
+                FOREIGN KEY (parent_id) REFERENCES parents (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="create-attendances-table" author="mk">
+        <sql>
+            CREATE TABLE IF NOT EXISTS attendances (
+                id UUID PRIMARY KEY,
+                child_id UUID,
+                entry_date TIMESTAMP(0) NOT NULL,
+                exit_date TIMESTAMP(0) NOT NULL,
+                CONSTRAINT entry_exit_dates CHECK (entry_date &lt;= exit_date),
+                FOREIGN KEY (child_id) REFERENCES childs (id)
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
