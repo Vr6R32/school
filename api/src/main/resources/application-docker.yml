@@ -1,0 +1,31 @@
+
+
+server:
+  port: 27017
+
+spring:
+  application:
+    name: school-api
+  datasource:
+    url: jdbc:postgresql://postgres:5432/school
+    username: postgres
+    password: dontgotosql
+    hikari:
+      max-lifetime: 600000
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        generate_statistics: false
+        show_sql: false
+        hbm2ddl:
+          #          auto: none
+          auto: create-drop
+
+  banner:
+    location: classpath:banner.txt
+
+  liquibase:
+    enabled: false
+    drop-first: false
+    change-log: classpath:db/changelog/db.changelog-master.xml

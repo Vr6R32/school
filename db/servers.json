@@ -1,0 +1,12 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "school-project",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "school",
+      "Username": "postgres"
+    }
+  }
+}
