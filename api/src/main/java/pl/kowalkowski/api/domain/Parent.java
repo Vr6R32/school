@@ -3,6 +3,7 @@ package pl.kowalkowski.api.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -17,6 +18,9 @@ public class Parent {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(nullable = false)
+    private LocalDate birthDay;
 
     @Column(nullable = false)
     private String firstname;

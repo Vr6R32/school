@@ -9,6 +9,7 @@
         <sql>
             CREATE TABLE IF NOT EXISTS parents (
                 id UUID PRIMARY KEY,
+                birth_day DATE NOT NULL,
                 firstname VARCHAR(255) NOT NULL,
                 lastname VARCHAR(255) NOT NULL
             );
@@ -29,6 +30,7 @@
         <sql>
             CREATE TABLE IF NOT EXISTS childs (
                 id UUID PRIMARY KEY,
+                birth_day DATE NOT NULL,
                 firstname VARCHAR(255) NOT NULL,
                 lastname VARCHAR(255) NOT NULL,
                 school_id UUID,

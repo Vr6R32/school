@@ -3,6 +3,7 @@ package pl.kowalkowski.api.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -23,6 +24,9 @@ public class Child {
 
     @Column(nullable = false)
     private String lastname;
+
+    @Column(nullable = false)
+    private LocalDate birthDay;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private School school;
