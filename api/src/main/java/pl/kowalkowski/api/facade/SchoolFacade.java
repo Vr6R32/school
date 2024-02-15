@@ -1,10 +1,12 @@
 package pl.kowalkowski.api.facade;
 
 import lombok.AllArgsConstructor;
+import pl.kowalkowski.api.domain.School;
 import pl.kowalkowski.api.infrastructure.school.SchoolResponse;
 import pl.kowalkowski.api.infrastructure.school.SchoolService;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @AllArgsConstructor
 public class SchoolFacade {
@@ -15,5 +17,8 @@ public class SchoolFacade {
     }
     public SchoolResponse getSchoolByName(String name) {
         return schoolService.getSchoolByName(name);
+    }
+    public School getSchoolById(UUID uuid) {
+        return schoolService.getSchoolById(uuid);
     }
 }

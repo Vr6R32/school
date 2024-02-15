@@ -2,18 +2,41 @@ package pl.kowalkowski.api.infrastructure.child;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import pl.kowalkowski.api.domain.Child;
+import pl.kowalkowski.api.domain.Parent;
+import pl.kowalkowski.api.domain.School;
+import pl.kowalkowski.api.facade.ParentFacade;
+import pl.kowalkowski.api.facade.SchoolFacade;
 import pl.kowalkowski.api.persistance.ChildRepository;
 
 import java.time.LocalDate;
+
+import static pl.kowalkowski.api.infrastructure.child.ChildMapper.mapChildToDTO;
 
 @RequiredArgsConstructor
 class ChildServiceImpl implements ChildService {
 
     private final ChildRepository childRepository;
+    private final SchoolFacade schoolFacade;
+    private final ParentFacade parentFacade;
 
     @Override
-    public ChildResponse createNewChild(NewChildRequest request) {
-        return null;
+    public ChildResponse registerNewChild(NewChildRequest request) {
+
+        School school = schoolFacade.getSchoolById(request.schoolId());
+        Parent parent = parentFacade.getParentById(request.parentId());
+
+        Child newChild = Child.builder()
+                .firstname(request.firstname())
+                .lastname(request.lastname())
+                .birthDay(request.birthDay())
+                .school(school)
+                .parent(parent)
+                .build();
+
+        childRepository.save(newChild);
+
+        return new ChildResponse("CHILD REGISTERED", HttpStatus.OK, mapChildToDTO(newChild));
     }
 
     @Override

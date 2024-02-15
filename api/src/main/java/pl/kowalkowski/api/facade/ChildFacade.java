@@ -13,7 +13,7 @@ public class ChildFacade {
     private final ChildService childService;
 
     public ChildResponse registerNewChild(NewChildRequest request) {
-        return childService.createNewChild(request);
+        return childService.registerNewChild(request);
     }
 
     public ChildResponse getChildByLastNameAndBirthDate(String lastname, LocalDate birthDay) {

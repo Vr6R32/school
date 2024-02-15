@@ -11,8 +11,8 @@ import pl.kowalkowski.api.infrastructure.school.SchoolResponse;
 import java.math.BigDecimal;
 
 @RestController
-@RequestMapping("api/v1/schools")
 @RequiredArgsConstructor
+@RequestMapping("api/v1/schools")
 public class SchoolController {
 
     private final SchoolFacade schoolFacade;

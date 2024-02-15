@@ -6,6 +6,7 @@ import pl.kowalkowski.api.domain.School;
 import pl.kowalkowski.api.persistance.SchoolRepository;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static pl.kowalkowski.api.infrastructure.school.SchoolMapper.mapSchoolToDTO;
 
@@ -38,4 +39,11 @@ class SchoolServiceImpl implements SchoolService {
                 .orElseThrow(() -> new SchoolException("SCHOOL WITH NAME " + "[" + name + "]" + " DOESNT EXISTS"));
         return new SchoolResponse("SCHOOL FOUND", HttpStatus.OK, school);
     }
+
+    @Override
+    public School getSchoolById(UUID uuid) {
+        return schoolRepository.findById(uuid)
+                .orElseThrow(() -> new SchoolException("SCHOOL WITH ID " + "[" + uuid + "]" + " DOESNT EXISTS"));
+    }
+
 }

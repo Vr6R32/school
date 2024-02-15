@@ -12,8 +12,8 @@ import pl.kowalkowski.api.infrastructure.child.NewChildRequest;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("api/v1/childs")
 @RequiredArgsConstructor
+@RequestMapping("api/v1/childs")
 public class ChildController {
 
     private final ChildFacade childFacade;

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public interface ChildService {
 
-    ChildResponse createNewChild(NewChildRequest request);
+    ChildResponse registerNewChild(NewChildRequest request);
     ChildResponse getChildByLastNameAndBirthDate(String lastname, LocalDate birthDay);
 
 }
