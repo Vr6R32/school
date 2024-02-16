@@ -125,8 +125,18 @@ public class InvoiceCalculator {
         return (int) Math.ceil(minutesSpent / 60.0);
     }
 
-    private long calculateBillableHours(LocalTime entryTime, LocalTime exitTime) {
-        if (entryTime.isBefore(FREE_PERIOD_START) && exitTime.isBefore(FREE_PERIOD_END)) {
+    long calculateBillableHours(LocalTime entryTime, LocalTime exitTime) {
+
+        if(entryTime.equals(FREE_PERIOD_START) && exitTime.isBefore(FREE_PERIOD_END)){
+            return 0;
+        }
+
+        if(entryTime.equals(FREE_PERIOD_START) && exitTime.equals(FREE_PERIOD_END)){
+            return 0;
+        }
+
+        if ((entryTime.isBefore(FREE_PERIOD_START) || entryTime.equals(FREE_PERIOD_START)) &&
+                (exitTime.isBefore(FREE_PERIOD_END) || exitTime.equals(FREE_PERIOD_END))) {
             return getMorningPayHours(entryTime);
         }
 
@@ -143,11 +153,11 @@ public class InvoiceCalculator {
         return 0;
     }
 
-    private long getAfterNoonPayHours(LocalTime exitTime) {
+    long getAfterNoonPayHours(LocalTime exitTime) {
         return ceilMinutesToHours(ChronoUnit.MINUTES.between(FREE_PERIOD_END, exitTime));
     }
 
-    private long getMorningPayHours(LocalTime entryTime) {
+    long getMorningPayHours(LocalTime entryTime) {
         return ceilMinutesToHours(ChronoUnit.MINUTES.between(entryTime, FREE_PERIOD_START));
     }
 
