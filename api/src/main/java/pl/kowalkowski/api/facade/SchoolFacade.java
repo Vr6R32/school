@@ -12,6 +12,7 @@ import java.util.UUID;
 public class SchoolFacade {
 
     private final SchoolService schoolService;
+
     public SchoolResponse registerNewSchool(String name, BigDecimal hourPrice) {
         return schoolService.createNewSchool(name, hourPrice);
     }
@@ -19,7 +20,7 @@ public class SchoolFacade {
         return schoolService.getSchoolByName(name);
     }
 
-    public School getSchoolById(UUID uuid) {
+    public School getSchoolEntityById(UUID uuid) {
         return schoolService.getSchoolById(uuid);
     }
 }

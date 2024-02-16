@@ -24,8 +24,8 @@ class ChildServiceImpl implements ChildService {
     @Override
     public ChildResponse registerNewChild(NewChildRequest request) {
 
-        School school = schoolFacade.getSchoolById(request.schoolId());
-        Parent parent = parentFacade.getParentById(request.parentId());
+        School school = schoolFacade.getSchoolEntityById(request.schoolId());
+        Parent parent = parentFacade.getParentEntityById(request.parentId());
 
         Child newChild = Child.builder()
                 .firstname(request.firstname())
@@ -49,7 +49,7 @@ class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Child getChildById(UUID uuid) {
+    public Child getChildEntityById(UUID uuid) {
         return childRepository.findById(uuid)
                 .orElseThrow(() -> new ChildException("CHILD WITH ID " + "[" + uuid + "]" + " DOESNT EXISTS"));
     }

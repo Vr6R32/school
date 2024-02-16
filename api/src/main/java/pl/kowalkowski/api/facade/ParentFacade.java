@@ -22,7 +22,7 @@ public class ParentFacade {
         return parentService.getParentByLastNameAndBirthDate(lastname,birthDay);
     }
 
-    public Parent getParentById(UUID parentId) {
+    public Parent getParentEntityById(UUID parentId) {
         return parentService.getParentById(parentId);
     }
 }

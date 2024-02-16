@@ -13,10 +13,10 @@ import java.util.UUID;
 
 public interface ChildRepository extends JpaRepository<Child, UUID> {
 
-    @Query("SELECT c FROM Child c" +
-           " LEFT JOIN FETCH c.school" +
-           " LEFT JOIN FETCH c.parent" +
-           " WHERE c.lastname = :lastname AND c.birthDay = :birthDay")
+    @Query("SELECT c FROM Child c " +
+           "LEFT JOIN FETCH c.school " +
+           "LEFT JOIN FETCH c.parent " +
+           "WHERE c.lastname = :lastname AND c.birthDay = :birthDay")
     Optional<Child> findByLastnameIgnoreCaseAndBirthDay(String lastname, LocalDate birthDay);
 
 }

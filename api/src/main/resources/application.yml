@@ -17,7 +17,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         generate_statistics: false
-        show_sql: false
+        show_sql: true
         hbm2ddl:
         auto: none
 #       auto: create-drop

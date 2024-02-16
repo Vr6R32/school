@@ -10,6 +10,6 @@ public interface ChildService {
 
     ChildResponse registerNewChild(NewChildRequest request);
     ChildResponse getChildByLastNameAndBirthDate(String lastname, LocalDate birthDay);
-    Child getChildById(UUID uuid);
+    Child getChildEntityById(UUID uuid);
 
 }

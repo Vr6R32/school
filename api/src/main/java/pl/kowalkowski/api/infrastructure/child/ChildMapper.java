@@ -21,6 +21,15 @@ public class ChildMapper {
                 .parent(mapParentToDTO(child.getParent()))
                 .build();
     }
+
+    public static ChildDTO mapChildToDTOnoRelations(Child child) {
+        return ChildDTO.builder()
+                .id(child.getId())
+                .firstname(child.getFirstname())
+                .lastname(child.getLastname())
+                .birthDay(child.getBirthDay())
+                .build();
+    }
 }
 
 

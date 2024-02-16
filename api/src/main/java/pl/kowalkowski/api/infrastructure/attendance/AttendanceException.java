@@ -3,7 +3,6 @@ package pl.kowalkowski.api.infrastructure.attendance;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import pl.kowalkowski.api.infrastructure.child.ChildException;
 
 public class AttendanceException extends RuntimeException {
 
@@ -11,9 +10,9 @@ public class AttendanceException extends RuntimeException {
         super(message);
     }
 
-    @ExceptionHandler(ChildException.class)
+    @ExceptionHandler(AttendanceException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public AttendanceResponse handleAttendanceException(ChildException ex) {
+    public AttendanceResponse handleAttendanceException(AttendanceException ex) {
         return new AttendanceResponse(ex.getMessage(),HttpStatus.BAD_REQUEST, null);
     }
 }

@@ -28,4 +28,6 @@ class AttendanceExceptionHandler {
             return new AttendanceResponse("UNIQUE KEY VIOLATION",HttpStatus.CONFLICT,null);
         }
     }
+
+
 }

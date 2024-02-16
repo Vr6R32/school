@@ -22,7 +22,7 @@ public class ChildFacade {
         return childService.getChildByLastNameAndBirthDate(lastname, birthDay);
     }
 
-    public Child getChildById(UUID uuid) {
-        return childService.getChildById(uuid);
+    public Child getChildEntityById(UUID uuid) {
+        return childService.getChildEntityById(uuid);
     }
 }
