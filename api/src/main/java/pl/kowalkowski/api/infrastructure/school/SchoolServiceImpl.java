@@ -6,6 +6,7 @@ import pl.kowalkowski.api.domain.School;
 import pl.kowalkowski.api.persistance.SchoolRepository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 import static pl.kowalkowski.api.infrastructure.school.SchoolMapper.mapSchoolToDTO;
@@ -14,6 +15,14 @@ import static pl.kowalkowski.api.infrastructure.school.SchoolMapper.mapSchoolToD
 class SchoolServiceImpl implements SchoolService {
 
     private final SchoolRepository schoolRepository;
+
+    @Override
+    public List<SchoolDTO> getAllSchools() {
+        return schoolRepository.findAll()
+                .stream()
+                .map(SchoolMapper::mapSchoolToDTO)
+                .toList();
+    }
 
     @Override
     public SchoolResponse createNewSchool(String name, BigDecimal hourPrice) {
@@ -44,6 +53,11 @@ class SchoolServiceImpl implements SchoolService {
     public School getSchoolById(UUID uuid) {
         return schoolRepository.findById(uuid)
                 .orElseThrow(() -> new SchoolException("SCHOOL WITH ID " + "[" + uuid + "]" + " DOESNT EXISTS"));
+    }
+
+    @Override
+    public boolean checkSchoolExistsById(UUID schoolId) {
+        return schoolRepository.existsById(schoolId);
     }
 
 }

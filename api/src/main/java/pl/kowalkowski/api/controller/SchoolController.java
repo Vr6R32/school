@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kowalkowski.api.facade.SchoolFacade;
+import pl.kowalkowski.api.infrastructure.school.SchoolDTO;
 import pl.kowalkowski.api.infrastructure.school.SchoolResponse;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +18,11 @@ import java.math.BigDecimal;
 public class SchoolController {
 
     private final SchoolFacade schoolFacade;
+
+    @GetMapping("all")
+    public List<SchoolDTO> getAllSchools(){
+        return schoolFacade.getAllSchools();
+    }
 
     @PostMapping
     public SchoolResponse registerNewSchool(String name, BigDecimal hourPrice){

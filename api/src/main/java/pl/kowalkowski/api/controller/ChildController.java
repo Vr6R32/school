@@ -23,6 +23,8 @@ public class ChildController {
 
     @GetMapping
     public ChildResponse getChildByLastNameAndBirthDate(String lastname, LocalDate birthDay){
+        // TODO IT's extra endpoint it can produce non unique query result
+        //  further implementation depends on bussines needs
         return childFacade.getChildByLastNameAndBirthDate(lastname,birthDay);
     }
 

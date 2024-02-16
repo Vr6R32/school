@@ -6,6 +6,7 @@ import pl.kowalkowski.api.domain.Parent;
 import pl.kowalkowski.api.persistance.ParentRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import static pl.kowalkowski.api.infrastructure.parent.ParentMapper.mapParentToDTO;
@@ -41,6 +42,19 @@ class ParentServiceImpl implements ParentService {
     public Parent getParentById(UUID uuid) {
         return parentRepository.findById(uuid)
                 .orElseThrow(() -> new ParentException("PARENT WITH ID " + "[" + uuid + "]" + " DOESNT EXISTS"));
+    }
+
+    @Override
+    public boolean checkParentExistsById(UUID schoolId) {
+        return parentRepository.existsById(schoolId);
+    }
+
+    @Override
+    public List<ParentDTO> getAllParent() {
+        return parentRepository.findAll()
+                .stream()
+                .map(ParentMapper::mapParentToDTO)
+                .toList();
     }
 
 }

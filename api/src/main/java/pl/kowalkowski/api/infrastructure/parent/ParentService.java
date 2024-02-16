@@ -4,6 +4,7 @@ package pl.kowalkowski.api.infrastructure.parent;
 import pl.kowalkowski.api.domain.Parent;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public interface ParentService {
@@ -14,5 +15,8 @@ public interface ParentService {
 
     Parent getParentById(UUID parentId);
 
+    boolean checkParentExistsById(UUID schoolId);
+
+    List<ParentDTO> getAllParent();
 
 }

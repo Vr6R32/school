@@ -14,18 +14,19 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/invoices")
-public class InvoiceController {
+public class InvoiceController implements InvoiceApi {
 
     private final InvoiceFacade invoiceFacade;
 
+    @Override
     @GetMapping("school")
     public InvoiceSchoolDTO getInvoiceForSchoolByIdAndPeriod(UUID schoolId, Month month, int year) {
         return invoiceFacade.getInvoiceForSchoolByIdAndPeriod(schoolId, month, year);
     }
 
+    @Override
     @GetMapping("parent")
     public InvoiceParentDTO getInvoiceForParentByIdAndPeriod(UUID parentId, Month month, int year) {
         return invoiceFacade.getInvoiceForParentByIdAndPeriod(parentId, month, year);
     }
-
 }
