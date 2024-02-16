@@ -1,5 +1,4 @@
 
-
 server:
   port: 27017
 
@@ -29,3 +28,22 @@ spring:
     enabled: true
     drop-first: true
     change-log: classpath:db/changelog/db.changelog-master.xml
+
+management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+  observations:
+    key-values:
+      application: school-api
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    metrics:
+      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
