@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import pl.kowalkowski.api.domain.Attendance;
 import pl.kowalkowski.api.domain.Child;
 import pl.kowalkowski.api.facade.ChildFacade;
-import pl.kowalkowski.api.infrastructure.invoice.InvoiceCalculator;
 import pl.kowalkowski.api.persistance.AttendanceRepository;
 
 import java.util.List;
@@ -20,7 +19,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     private final AttendanceRepository attendanceRepository;
     private final ChildFacade childFacade;
-    private final InvoiceCalculator invoiceCalculator;
 
 
     @Override

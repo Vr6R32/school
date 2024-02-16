@@ -10,8 +10,8 @@ public class AttendanceServiceFactory {
     private AttendanceServiceFactory() {
     }
 
-    public static AttendanceService createAttendanceService(AttendanceRepository attendanceRepository, ChildFacade childFacade, InvoiceCalculator invoiceCalculator) {
-        return new AttendanceServiceImpl(attendanceRepository,childFacade, invoiceCalculator);
+    public static AttendanceService createAttendanceService(AttendanceRepository attendanceRepository, ChildFacade childFacade) {
+        return new AttendanceServiceImpl(attendanceRepository,childFacade);
     }
 
 }

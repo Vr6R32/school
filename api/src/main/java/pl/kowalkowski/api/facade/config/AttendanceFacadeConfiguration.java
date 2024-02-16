@@ -7,7 +7,6 @@ import pl.kowalkowski.api.facade.AttendanceFacade;
 import pl.kowalkowski.api.facade.ChildFacade;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceService;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceServiceFactory;
-import pl.kowalkowski.api.infrastructure.invoice.InvoiceCalculator;
 import pl.kowalkowski.api.persistance.AttendanceRepository;
 
 @Configuration
@@ -19,8 +18,7 @@ public class AttendanceFacadeConfiguration {
 
     @Bean
     AttendanceFacade attendanceFacade() {
-        InvoiceCalculator invoiceCalculator = new InvoiceCalculator();
-        AttendanceService attendanceService = AttendanceServiceFactory.createAttendanceService(attendanceRepository,childFacade, invoiceCalculator);
+        AttendanceService attendanceService = AttendanceServiceFactory.createAttendanceService(attendanceRepository,childFacade);
         return new AttendanceFacade(attendanceService);
     }
 
