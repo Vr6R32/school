@@ -19,7 +19,7 @@ spring:
         show_sql: false
         hbm2ddl:
         auto: none
-#       auto: create-drop
+#        auto: create-drop
 
   banner:
     location: classpath:banner.txt

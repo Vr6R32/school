@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class TestDataGenerator {
@@ -43,13 +44,12 @@ public class TestDataGenerator {
 
     private void generateParents() {
         List<Parent> parents = new ArrayList<>();
-        LocalDate parentBirthDate = LocalDate.of(1980, 1, 1);
 
         for (int i = 1; i <= 10; i++) {
             Parent parent = Parent.builder()
                     .firstname(faker.name().firstName())
                     .lastname(faker.name().lastName())
-                    .birthDay(parentBirthDate.plusDays(i))
+                    .birthDay(generateRandomBirthDate(1973,1998))
                     .build();
             parents.add(parent);
         }
@@ -62,8 +62,8 @@ public class TestDataGenerator {
 
         for (int i = 1; i <= 3; i++) {
             School school = School.builder()
-                    .name(faker.company().name())
-                    .hourPrice(BigDecimal.valueOf(10L + i))
+                    .name(faker.company().industry() + " School")
+                    .hourPrice(BigDecimal.valueOf(random.nextInt(10,30)))
                     .build();
             schools.add(school);
         }
@@ -73,29 +73,33 @@ public class TestDataGenerator {
 
     private void generateChildren() {
 
-
         List<Child> children = new ArrayList<>();
-        LocalDate childBirthDate = LocalDate.of(2010, 1, 1);
-
         List<Parent> parents = parentRepository.findAll();
         List<School> schools = schoolRepository.findAll();
 
         for (int i = 1; i <= 100; i++) {
+
             Parent parent = parents.get(i % parents.size());
             School school = schools.get(i % schools.size());
-
 
             Child child = Child.builder()
                     .firstname(faker.name().firstName())
                     .lastname(faker.name().lastName())
                     .school(school)
                     .parent(parent)
-                    .birthDay(childBirthDate.plusDays(i))
+                    .birthDay(generateRandomBirthDate(2015,2020))
                     .build();
             children.add(child);
         }
 
         childRepository.saveAll(children);
+    }
+
+    private LocalDate generateRandomBirthDate(int minYear, int maxYear) {
+        int year = ThreadLocalRandom.current().nextInt(minYear, maxYear + 1);
+        int month = ThreadLocalRandom.current().nextInt(1, 13);
+        int day = ThreadLocalRandom.current().nextInt(1, LocalDate.of(year, month, 1).lengthOfMonth() + 1);
+        return LocalDate.of(year, month, day);
     }
 
     private void generateAttendanceRecords() {
@@ -114,24 +118,21 @@ public class TestDataGenerator {
             LocalDateTime entryDateTime = currentDateTime.withHour(entryHour).withMinute(random.nextInt(60));
             LocalDateTime exitDateTime = currentDateTime.withHour(exitHour).withMinute(random.nextInt(60));
 
-            Attendance attendance = Attendance.builder()
-                    .child(child)
-                    .entryDate(entryDateTime)
-                    .exitDate(exitDateTime)
-                    .build();
 
-            attendanceRecords.add(attendance);
 
-            LocalDateTime entryDateTimeNextDay = currentDateTime.plusDays(1).withHour(entryHour).withMinute(random.nextInt(60));
-            LocalDateTime exitDateTimeNextDay = currentDateTime.plusDays(1).withHour(exitHour).withMinute(random.nextInt(60));
+            for (int j = 1; j <= 5; j++) {
+                LocalDateTime entryDateTimeNextDay = entryDateTime.plusDays(j).withHour(entryDateTime.getHour()).withMinute(entryDateTime.getMinute());
+                LocalDateTime exitDateTimeNextDay = exitDateTime.plusDays(j).withHour(exitDateTime.getHour()).withMinute(exitDateTime.getMinute());
 
-            Attendance attendance2 = Attendance.builder()
-                    .child(child)
-                    .entryDate(entryDateTimeNextDay)
-                    .exitDate(exitDateTimeNextDay)
-                    .build();
+                Attendance additionalAttendance = Attendance.builder()
+                        .child(child)
+                        .entryDate(entryDateTimeNextDay)
+                        .exitDate(exitDateTimeNextDay)
+                        .build();
 
-            attendanceRecords.add(attendance2);
+                attendanceRecords.add(additionalAttendance);
+            }
+
 
             currentDateTime = currentDateTime.plusDays(1);
         }
