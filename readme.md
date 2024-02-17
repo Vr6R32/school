@@ -16,11 +16,10 @@ docker compose up
 
 <h1 align="center">URLs</h1>
 
-
-|  Service   |                                  LOCAL                                  |
-|:----------:|:-----------------------------------------------------------------------:|
-|  OpenApi   | [http://localhost:27017/](http://localhost:27017/swagger-ui/index.html) |
-| Prometheus |            [http://localhost:9090/](http://localhost:9090/)             |
-|  Grafana   |            [http://localhost:3000/](http://localhost:3000/)             |
-|   Zipkin   |            [http://localhost:9411/](http://localhost:9411/)             |
-|  pgAdmin   |            [http://localhost:5050/](http://localhost:5050/)             |
+|  Service   |                                  LOCAL                                  |          Credentials         |
+|:----------:|:-----------------------------------------------------------------------:|:-----------------------------:|
+|  OpenApi   | [http://localhost:27017/](http://localhost:27017/swagger-ui/index.html) |               -               |
+| Prometheus |            [http://localhost:9090/](http://localhost:9090/)             |               -               |
+|  Grafana   |            [http://localhost:3000/](http://localhost:3000/)             | login: admin / pass: admin    |
+|   Zipkin   |            [http://localhost:9411/](http://localhost:9411/)             |               -               |
+|  pgAdmin   |            [http://localhost:5050/](http://localhost:5050/)             |          pass: dontgotosql   |
