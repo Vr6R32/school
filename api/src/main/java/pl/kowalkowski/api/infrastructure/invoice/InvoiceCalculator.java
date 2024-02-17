@@ -107,7 +107,8 @@ public class InvoiceCalculator {
                 .map(this::calculateAttendancePayment)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return new SummaryTotalChildPaymentHours(totalPayment, totalBillableHours);
+        int totalAttendances = attendanceList.size();
+        return new SummaryTotalChildPaymentHours(totalPayment, totalBillableHours, totalAttendances);
     }
 
     private BigDecimal calculateAttendancePayment(AttendanceDTO attendance) {
