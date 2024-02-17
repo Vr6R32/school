@@ -74,7 +74,7 @@ public class InvoiceCalculator {
                     ChildDTO child = entry.getKey();
                     List<AttendanceDTO> childAttendances = entry.getValue();
 
-                    SummaryTotalPaymentHours totalPaymentForChild = calculateTotalPayment(childAttendances);
+                    SummaryTotalChildPaymentHours totalPaymentForChild = calculateTotalChildrenPayment(childAttendances);
                     int hoursSpent = calculateTotalHoursSpent(childAttendances);
 
                     return InvoiceChildSummaryDTO.builder()
@@ -95,7 +95,8 @@ public class InvoiceCalculator {
                 .sum();
     }
 
-    private SummaryTotalPaymentHours calculateTotalPayment(List<AttendanceDTO> attendanceList) {
+    private SummaryTotalChildPaymentHours calculateTotalChildrenPayment(List<AttendanceDTO> attendanceList) {
+
         long totalBillableHours = attendanceList.stream()
                 .mapToLong(attendance -> calculateBillableHours(
                         attendance.entryDate().toLocalTime(),
@@ -103,21 +104,18 @@ public class InvoiceCalculator {
                 .sum();
 
         BigDecimal totalPayment = attendanceList.stream()
-                .map(this::calculateTotalPayment)
-                .map(SummaryTotalPaymentHours::totalPayment)
+                .map(this::calculateAttendancePayment)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return new SummaryTotalPaymentHours(totalPayment, totalBillableHours);
+        return new SummaryTotalChildPaymentHours(totalPayment, totalBillableHours);
     }
 
-    private SummaryTotalPaymentHours calculateTotalPayment(AttendanceDTO attendance) {
+    private BigDecimal calculateAttendancePayment(AttendanceDTO attendance) {
         long billableHours = calculateBillableHours(
                 attendance.entryDate().toLocalTime(),
                 attendance.exitDate().toLocalTime());
         BigDecimal hourPrice = attendance.child().school().hourPrice();
-        BigDecimal totalPayment = hourPrice.multiply(BigDecimal.valueOf(billableHours)).setScale(2, RoundingMode.HALF_UP);
-
-        return new SummaryTotalPaymentHours(totalPayment, billableHours);
+        return hourPrice.multiply(BigDecimal.valueOf(billableHours)).setScale(2, RoundingMode.HALF_UP);
     }
 
     private int hoursSpent(AttendanceDTO attendance) {
