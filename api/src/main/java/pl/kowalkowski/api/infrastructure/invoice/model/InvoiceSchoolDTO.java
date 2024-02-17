@@ -7,5 +7,5 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Builder
-public record InvoiceSchoolDTO(SchoolDTO school, BigDecimal totalPayment, List<InvoiceChildSummaryDTO> childrenPayments) {
+public record InvoiceSchoolDTO(SchoolDTO school, BigDecimal totalPayment, List<InvoiceChildSummaryDTO> childrenPayments) implements InvoiceDTO {
 }

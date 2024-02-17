@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceParentDTO;
+import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceResponse;
 import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceSchoolDTO;
 
 import java.time.Month;
@@ -21,10 +22,10 @@ public interface InvoiceApi {
             @ApiResponse(responseCode = "400", description = "Attendances not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    InvoiceSchoolDTO getInvoiceForSchoolByIdAndPeriod(
+    InvoiceResponse<InvoiceSchoolDTO> getInvoiceForSchoolByIdAndPeriod(
             @Parameter(description = "ID of the school") @RequestParam UUID schoolId,
-            @Parameter(description = "Month for the invoice") @RequestParam  Month month,
-            @Parameter(description = "Year for the invoice") @RequestParam  int year);
+            @Parameter(description = "Month for the invoice") @RequestParam Month month,
+            @Parameter(description = "Year for the invoice") @RequestParam int year);
 
     @Operation(summary = "Get Invoice for Parent by ID and Period",
             description = "Returns an Invoice summary for a parent based on provided ID, month, and year.")
@@ -34,8 +35,8 @@ public interface InvoiceApi {
             @ApiResponse(responseCode = "400", description = "Attendances not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    InvoiceParentDTO getInvoiceForParentByIdAndPeriod(
-            @Parameter(description = "ID of the parent") @RequestParam  UUID parentId,
-            @Parameter(description = "Month for the invoice") @RequestParam  Month month,
-            @Parameter(description = "Year for the invoice") @RequestParam  int year);
+    InvoiceResponse<InvoiceParentDTO> getInvoiceForParentByIdAndPeriod(
+            @Parameter(description = "ID of the parent") @RequestParam UUID parentId,
+            @Parameter(description = "Month for the invoice") @RequestParam Month month,
+            @Parameter(description = "Year for the invoice") @RequestParam int year);
 }
