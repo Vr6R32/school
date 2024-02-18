@@ -6,6 +6,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.Builder;
 
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.UUID;
 
 @Builder
@@ -15,7 +16,7 @@ public record NewChildRequest(
         @NotNull(message = "BIRTHDAY CANNOT BE EMPTY")
         @PastOrPresent(message = "BIRTHDAY MUST BE A DATE IN PAST OR PRESENT TIME") LocalDate birthDay,
         UUID schoolId,
-        UUID parentId
+        Set<UUID> parentIds
 
 ) {
 }

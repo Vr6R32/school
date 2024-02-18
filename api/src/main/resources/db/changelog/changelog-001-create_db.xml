@@ -34,9 +34,7 @@
                 firstname VARCHAR(255) NOT NULL,
                 lastname VARCHAR(255) NOT NULL,
                 school_id UUID,
-                parent_id UUID,
-                FOREIGN KEY (school_id) REFERENCES schools (id),
-                FOREIGN KEY (parent_id) REFERENCES parents (id)
+                FOREIGN KEY (school_id) REFERENCES schools (id)
             );
         </sql>
     </changeSet>
@@ -51,6 +49,18 @@
                 CONSTRAINT entry_exit_dates CHECK (entry_date &lt;= exit_date),
                 CONSTRAINT unique_attendance_entry UNIQUE (child_id, entry_date, exit_date),
                 FOREIGN KEY (child_id) REFERENCES childs (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="create-child-parent-relation-table" author="mk">
+        <sql>
+            CREATE TABLE IF NOT EXISTS child_parents (
+                child_id UUID,
+                parent_id UUID,
+                PRIMARY KEY (child_id, parent_id),
+                FOREIGN KEY (child_id) REFERENCES childs(id),
+                FOREIGN KEY (parent_id) REFERENCES parents(id)
             );
         </sql>
     </changeSet>

@@ -13,18 +13,18 @@ public interface AttendanceRepository extends JpaRepository<Attendance, UUID> {
 
     @Query("SELECT a FROM Attendance a " +
             "LEFT JOIN FETCH a.child c " +
-            "LEFT JOIN FETCH c.parent p " +
             "LEFT JOIN FETCH c.school s " +
+            "LEFT JOIN FETCH c.parents p " +
             "WHERE c.school.id = ?1 " +
             "AND MONTH(a.entryDate) = ?2 " +
             "AND YEAR(a.entryDate) = ?3")
     List<Attendance> findAttendancesBySchoolIdAndMonth(UUID schoolId, int month, int year);
 
-    @Query("SELECT DISTINCT a FROM Attendance a " +
+    @Query("SELECT a FROM Attendance a " +
             "LEFT JOIN FETCH a.child c " +
             "LEFT JOIN FETCH c.school s " +
-            "LEFT JOIN FETCH a.child.parent " +
-            "WHERE c.parent.id = ?1 " +
+            "LEFT JOIN c.parents p " +
+            "WHERE p.id = ?1 " +
             "AND MONTH(a.entryDate) = ?2 " +
             "AND YEAR(a.entryDate) = ?3")
     List<Attendance> findAttendancesByParentIdAndMonth(UUID parentId, int month, int year);

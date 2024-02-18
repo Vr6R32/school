@@ -6,5 +6,5 @@ import pl.kowalkowski.api.infrastructure.child.ChildDTO;
 import java.math.BigDecimal;
 
 @Builder
-public record InvoiceChildSummaryDTO(ChildDTO child, BigDecimal totalPayment, int hoursSpent, long payHours) {
+public record InvoiceChildSummaryDTO(ChildDTO child, BigDecimal totalPayment, int hoursSpent, long payHours, int attendancesCount) {
 }

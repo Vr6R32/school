@@ -5,7 +5,8 @@ import pl.kowalkowski.api.infrastructure.parent.ParentDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Builder
-public record InvoiceParentDTO(ParentDTO parent, BigDecimal totalPayment, List<InvoiceChildSummaryDTO> childrenPayments) implements InvoiceDTO  {
+public record InvoiceParentDTO(Set<ParentDTO> parents, BigDecimal totalPayment, List<InvoiceChildSummaryDTO> childrenPayments) implements InvoiceDTO  {
 }

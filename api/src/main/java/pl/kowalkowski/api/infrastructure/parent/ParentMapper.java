@@ -2,7 +2,6 @@ package pl.kowalkowski.api.infrastructure.parent;
 
 import pl.kowalkowski.api.domain.Parent;
 
-
 public class ParentMapper {
     private ParentMapper() {
     }

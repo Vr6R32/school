@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -31,6 +32,11 @@ public class Child {
     @ManyToOne(fetch = FetchType.LAZY)
     private School school;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Parent parent;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "child_parents",
+            joinColumns = @JoinColumn(name = "child_id"),
+            inverseJoinColumns = @JoinColumn(name = "parent_id")
+    )
+    private Set<Parent> parents;
 }

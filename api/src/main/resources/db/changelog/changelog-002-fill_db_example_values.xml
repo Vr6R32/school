@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="insert_example_schools" author="michal-k">
+        <loadData tableName="schools" file="classpath:/db/csv/schools.csv" separator=",">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="insert_example_childs" author="michal-k">
+        <loadData tableName="childs" file="classpath:/db/csv/childs.csv" separator=",">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="insert_example_parents" author="michal-k">
+        <loadData tableName="parents" file="classpath:/db/csv/parents.csv" separator=",">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="insert_example_child_parents" author="michal-k">
+        <loadData tableName="child_parents" file="classpath:/db/csv/child_parents.csv" separator=",">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="insert_example_attendances" author="michal-k">
+        <loadData tableName="attendances" file="classpath:/db/csv/attendances.csv" separator=",">
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

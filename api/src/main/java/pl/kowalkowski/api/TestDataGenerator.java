@@ -1,7 +1,6 @@
 package pl.kowalkowski.api;
 
 import com.github.javafaker.Faker;
-import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import pl.kowalkowski.api.domain.*;
 import pl.kowalkowski.api.persistance.*;
@@ -10,9 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -34,8 +31,9 @@ public class TestDataGenerator {
         this.parentRepository = parentRepository;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void generateTestData() {
+        //TODO just uncomment @PostConstruct annotation to generate more example data
         generateParents();
         generateSchools();
         generateChildren();
@@ -73,26 +71,27 @@ public class TestDataGenerator {
 
     private void generateChildren() {
 
-        List<Child> children = new ArrayList<>();
+        List<Child> childrens = new LinkedList<>();
         List<Parent> parents = parentRepository.findAll();
         List<School> schools = schoolRepository.findAll();
 
         for (int i = 1; i <= 100; i++) {
 
             Parent parent = parents.get(i % parents.size());
+            Parent parent2 = parents.get((i + 1) % parents.size());
             School school = schools.get(i % schools.size());
 
             Child child = Child.builder()
                     .firstname(faker.name().firstName())
                     .lastname(faker.name().lastName())
                     .school(school)
-                    .parent(parent)
+                    .parents(Set.of(parent,parent2))
                     .birthDay(generateRandomBirthDate(2015,2020))
                     .build();
-            children.add(child);
+            childrens.add(child);
         }
 
-        childRepository.saveAll(children);
+        childRepository.saveAll(childrens);
     }
 
     private LocalDate generateRandomBirthDate(int minYear, int maxYear) {
@@ -118,12 +117,12 @@ public class TestDataGenerator {
             LocalDateTime entryDateTime = currentDateTime.withHour(entryHour).withMinute(random.nextInt(60));
             LocalDateTime exitDateTime = currentDateTime.withHour(exitHour).withMinute(random.nextInt(60));
 
+            int randomAttendances = random.nextInt(3, 12);
 
+            for (int j = 1; j <= randomAttendances; j++) {
 
-            for (int j = 1; j <= 5; j++) {
                 LocalDateTime entryDateTimeNextDay = entryDateTime.plusDays(j).withHour(entryDateTime.getHour()).withMinute(entryDateTime.getMinute());
                 LocalDateTime exitDateTimeNextDay = exitDateTime.plusDays(j).withHour(exitDateTime.getHour()).withMinute(exitDateTime.getMinute());
-
                 Attendance additionalAttendance = Attendance.builder()
                         .child(child)
                         .entryDate(entryDateTimeNextDay)

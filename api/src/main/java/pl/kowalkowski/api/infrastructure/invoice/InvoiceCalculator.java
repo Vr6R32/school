@@ -4,7 +4,6 @@ import pl.kowalkowski.api.infrastructure.attendance.AttendanceDTO;
 import pl.kowalkowski.api.infrastructure.child.ChildDTO;
 import pl.kowalkowski.api.infrastructure.invoice.model.*;
 import pl.kowalkowski.api.infrastructure.parent.ParentDTO;
-import pl.kowalkowski.api.infrastructure.parent.ParentException;
 import pl.kowalkowski.api.infrastructure.school.SchoolDTO;
 import pl.kowalkowski.api.infrastructure.school.SchoolException;
 
@@ -12,8 +11,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InvoiceCalculator {
@@ -40,15 +38,15 @@ public class InvoiceCalculator {
 
     public InvoiceParentDTO calculateParentSummary(List<AttendanceDTO> attendanceList) {
 
-        ParentDTO parent = attendanceList.stream()
+        Set<ParentDTO> parents = new HashSet<>(attendanceList.stream()
                 .findFirst()
                 .map(attendanceDTO -> attendanceDTO.child().parent())
-                .orElseThrow(() -> new ParentException("PARENT IS NOT PRESENT"));
+                .orElse(Collections.emptySet()));
 
         SummaryChildPayments payments = getSummaryPayments(attendanceList);
 
         return InvoiceParentDTO.builder()
-                .parent(parent)
+                .parents(parents)
                 .totalPayment(payments.totalPayment())
                 .childrenPayments(payments.childrenPayments())
                 .build();
@@ -74,7 +72,7 @@ public class InvoiceCalculator {
                     ChildDTO child = entry.getKey();
                     List<AttendanceDTO> childAttendances = entry.getValue();
 
-                    SummaryTotalPaymentHours totalPaymentForChild = calculateTotalPayment(childAttendances);
+                    SummaryTotalChildPaymentHours totalPaymentForChild = calculateTotalChildrenPayment(childAttendances);
                     int hoursSpent = calculateTotalHoursSpent(childAttendances);
 
                     return InvoiceChildSummaryDTO.builder()
@@ -82,6 +80,7 @@ public class InvoiceCalculator {
                             .totalPayment(totalPaymentForChild.totalPayment())
                             .hoursSpent(hoursSpent)
                             .payHours(totalPaymentForChild.totalBillableHours())
+                            .attendancesCount(totalPaymentForChild.totalAttendances())
                             .build();
 
                 })
@@ -95,7 +94,8 @@ public class InvoiceCalculator {
                 .sum();
     }
 
-    private SummaryTotalPaymentHours calculateTotalPayment(List<AttendanceDTO> attendanceList) {
+    private SummaryTotalChildPaymentHours calculateTotalChildrenPayment(List<AttendanceDTO> attendanceList) {
+
         long totalBillableHours = attendanceList.stream()
                 .mapToLong(attendance -> calculateBillableHours(
                         attendance.entryDate().toLocalTime(),
@@ -103,23 +103,21 @@ public class InvoiceCalculator {
                 .sum();
 
         BigDecimal totalPayment = attendanceList.stream()
-                .map(this::calculateTotalPayment)
-                .map(SummaryTotalPaymentHours::totalPayment)
+                .map(this::calculateAttendancePayment)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return new SummaryTotalPaymentHours(totalPayment, totalBillableHours);
+        int totalAttendances = attendanceList.size();
+
+        return new SummaryTotalChildPaymentHours(totalPayment, totalBillableHours, totalAttendances);
     }
 
-    private SummaryTotalPaymentHours calculateTotalPayment(AttendanceDTO attendance) {
+    private BigDecimal calculateAttendancePayment(AttendanceDTO attendance) {
         long billableHours = calculateBillableHours(
                 attendance.entryDate().toLocalTime(),
                 attendance.exitDate().toLocalTime());
         BigDecimal hourPrice = attendance.child().school().hourPrice();
-        BigDecimal totalPayment = hourPrice.multiply(BigDecimal.valueOf(billableHours)).setScale(2, RoundingMode.HALF_UP);
-
-        return new SummaryTotalPaymentHours(totalPayment, billableHours);
+        return hourPrice.multiply(BigDecimal.valueOf(billableHours)).setScale(2, RoundingMode.HALF_UP);
     }
-
     private int hoursSpent(AttendanceDTO attendance) {
         long minutesSpent = attendance.entryDate().until(attendance.exitDate(), ChronoUnit.MINUTES);
         return (int) Math.ceil(minutesSpent / 60.0);

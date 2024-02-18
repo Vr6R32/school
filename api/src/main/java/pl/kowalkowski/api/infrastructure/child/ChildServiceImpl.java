@@ -10,7 +10,9 @@ import pl.kowalkowski.api.facade.SchoolFacade;
 import pl.kowalkowski.api.persistance.ChildRepository;
 
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static pl.kowalkowski.api.infrastructure.child.ChildMapper.mapChildToDTO;
 
@@ -25,14 +27,17 @@ class ChildServiceImpl implements ChildService {
     public ChildResponse registerNewChild(NewChildRequest request) {
 
         School school = schoolFacade.getSchoolEntityById(request.schoolId());
-        Parent parent = parentFacade.getParentEntityById(request.parentId());
+
+        Set<Parent> parents = request.parentIds().stream()
+                .map(parentFacade::getParentEntityById)
+                .collect(Collectors.toSet());
 
         Child newChild = Child.builder()
                 .firstname(request.firstname())
                 .lastname(request.lastname())
                 .birthDay(request.birthDay())
                 .school(school)
-                .parent(parent)
+                .parents(parents)
                 .build();
 
         childRepository.save(newChild);

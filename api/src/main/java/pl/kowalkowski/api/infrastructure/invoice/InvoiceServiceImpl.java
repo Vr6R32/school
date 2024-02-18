@@ -26,7 +26,7 @@ class InvoiceServiceImpl implements InvoiceService {
         List<AttendanceDTO> attendances = attendanceFacade.getAttendancesForParentByIdAndPeriod(parentId, month, year);
         InvoiceParentDTO invoiceParentDTO = invoiceCalculator.calculateParentSummary(attendances);
 
-        log.info("[INVOICE-SERVICE] -> REQUESTED INVOICE BY PARENT WITH ID {} FOR PERIOD -> YEAR: {} MONTH: {}", parentId, year, month);
+        log.info("[INVOICE-SERVICE] -> REQUESTED INVOICE BY PARENT WITH ID [{}] FOR PERIOD -> YEAR: [{}] MONTH: [{}]", parentId, year, month);
         return new InvoiceResponse<>("INVOICE GENERATED", HttpStatus.OK, invoiceParentDTO);
     }
 
