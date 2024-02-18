@@ -10,7 +10,7 @@ import pl.kowalkowski.api.persistance.ParentRepository;
 
 @Configuration
 @RequiredArgsConstructor
-public class ParentFacadeConfiguration {
+class ParentFacadeConfiguration {
 
     private final ParentRepository parentRepository;
 

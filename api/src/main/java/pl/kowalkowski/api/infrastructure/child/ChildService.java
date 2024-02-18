@@ -9,7 +9,9 @@ import java.util.UUID;
 public interface ChildService {
 
     ChildResponse registerNewChild(NewChildRequest request);
+
     ChildResponse getChildByLastNameAndBirthDate(String lastname, LocalDate birthDay);
+
     Child getChildEntityById(UUID uuid);
 
 }

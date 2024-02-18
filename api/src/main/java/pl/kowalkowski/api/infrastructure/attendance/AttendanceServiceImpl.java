@@ -53,7 +53,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
 
         if (attendances.isEmpty()) {
-            throw new AttendanceException("THERE ARE NO FOR PERIOD" +"[" + month +", "+ year + "]"+ "ATTENDANCES");
+            throw new AttendanceException("THERE ARE NO FOR PERIOD" + "[" + month + ", " + year + "]" + "ATTENDANCES");
         }
 
         return attendances.stream()
@@ -72,7 +72,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         List<Attendance> attendances = attendanceRepository.findAttendancesByParentIdAndMonth(parentId, month, year);
 
         if (attendances.isEmpty()) {
-            throw new AttendanceException("THERE ARE NO FOR PERIOD" +"[" + month +", "+ year + "]"+ "ATTENDANCES");
+            throw new AttendanceException("THERE ARE NO FOR PERIOD" + "[" + month + ", " + year + "]" + "ATTENDANCES");
         }
 
         return attendances.stream()

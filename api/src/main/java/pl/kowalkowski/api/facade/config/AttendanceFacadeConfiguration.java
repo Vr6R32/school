@@ -13,7 +13,7 @@ import pl.kowalkowski.api.persistance.AttendanceRepository;
 
 @Configuration
 @RequiredArgsConstructor
-public class AttendanceFacadeConfiguration {
+class AttendanceFacadeConfiguration {
 
     private final AttendanceRepository attendanceRepository;
     private final ChildFacade childFacade;
@@ -22,7 +22,7 @@ public class AttendanceFacadeConfiguration {
 
     @Bean
     AttendanceFacade attendanceFacade() {
-        AttendanceService attendanceService = AttendanceServiceFactory.createAttendanceService(attendanceRepository,childFacade,schoolFacade,parentFacade);
+        AttendanceService attendanceService = AttendanceServiceFactory.createAttendanceService(attendanceRepository, childFacade, schoolFacade, parentFacade);
         return new AttendanceFacade(attendanceService);
     }
 

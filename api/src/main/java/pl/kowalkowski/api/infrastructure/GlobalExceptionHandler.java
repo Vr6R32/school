@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     public GlobalExceptionResponse handleDateParseException(HttpMessageNotReadableException ex) {
         Throwable cause = ex.getCause();
         if (cause instanceof JsonMappingException jsonMappingException && (jsonMappingException.getMessage().contains("LocalDate"))) {
-                return new GlobalExceptionResponse("INVALID DATE FORMAT", HttpStatus.BAD_REQUEST);
+            return new GlobalExceptionResponse("INVALID DATE FORMAT", HttpStatus.BAD_REQUEST);
         }
         return new GlobalExceptionResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }

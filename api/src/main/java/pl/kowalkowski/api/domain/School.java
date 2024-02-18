@@ -19,7 +19,7 @@ public class School {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Column(nullable = false, precision = 2)

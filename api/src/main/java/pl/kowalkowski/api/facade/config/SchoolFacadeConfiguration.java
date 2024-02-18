@@ -10,7 +10,7 @@ import pl.kowalkowski.api.persistance.SchoolRepository;
 
 @Configuration
 @RequiredArgsConstructor
-public class SchoolFacadeConfiguration {
+class SchoolFacadeConfiguration {
 
     private final SchoolRepository schoolRepository;
 

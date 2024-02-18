@@ -7,7 +7,7 @@ public class SchoolMapper {
     private SchoolMapper() {
     }
 
-    public static SchoolDTO mapSchoolToDTO(School school){
+    public static SchoolDTO mapSchoolToDTO(School school) {
         return SchoolDTO.builder()
                 .id(school.getId())
                 .name(school.getName())

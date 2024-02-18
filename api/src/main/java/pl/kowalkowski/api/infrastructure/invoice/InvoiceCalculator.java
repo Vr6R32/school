@@ -65,7 +65,6 @@ public class InvoiceCalculator {
     }
 
 
-
     private List<InvoiceChildSummaryDTO> calculateChildrenPayments(Map<ChildDTO, List<AttendanceDTO>> attendancesByChild) {
         return attendancesByChild.entrySet().stream()
                 .map(entry -> {
@@ -125,11 +124,11 @@ public class InvoiceCalculator {
 
     long calculateBillableHours(LocalTime entryTime, LocalTime exitTime) {
 
-        if(entryTime.equals(FREE_PERIOD_START) && exitTime.isBefore(FREE_PERIOD_END)){
+        if (entryTime.equals(FREE_PERIOD_START) && exitTime.isBefore(FREE_PERIOD_END)) {
             return 0;
         }
 
-        if(entryTime.equals(FREE_PERIOD_START) && exitTime.equals(FREE_PERIOD_END)){
+        if (entryTime.equals(FREE_PERIOD_START) && exitTime.equals(FREE_PERIOD_END)) {
             return 0;
         }
 

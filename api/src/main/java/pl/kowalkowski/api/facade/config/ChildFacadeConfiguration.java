@@ -12,7 +12,7 @@ import pl.kowalkowski.api.persistance.ChildRepository;
 
 @Configuration
 @RequiredArgsConstructor
-public class ChildFacadeConfiguration {
+class ChildFacadeConfiguration {
 
     private final SchoolFacade schoolFacade;
     private final ParentFacade parentFacade;
@@ -20,7 +20,7 @@ public class ChildFacadeConfiguration {
 
     @Bean
     public ChildFacade childFacade() {
-        ChildService childService = ChildServiceFactory.createChildService(childRepository,schoolFacade,parentFacade);
+        ChildService childService = ChildServiceFactory.createChildService(childRepository, schoolFacade, parentFacade);
         return new ChildFacade(childService);
     }
 }

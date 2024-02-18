@@ -15,22 +15,22 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/schools")
-public class SchoolController {
+class SchoolController {
 
     private final SchoolFacade schoolFacade;
 
     @GetMapping("all")
-    public List<SchoolDTO> getAllSchools(){
+    public List<SchoolDTO> getAllSchools() {
         return schoolFacade.getAllSchools();
     }
 
     @PostMapping
-    public SchoolResponse registerNewSchool(String name, BigDecimal hourPrice){
+    public SchoolResponse registerNewSchool(String name, BigDecimal hourPrice) {
         return schoolFacade.registerNewSchool(name, hourPrice);
     }
 
     @GetMapping
-    public SchoolResponse findSchool(String name){
+    public SchoolResponse findSchool(String name) {
         return schoolFacade.getSchoolByName(name);
     }
 }

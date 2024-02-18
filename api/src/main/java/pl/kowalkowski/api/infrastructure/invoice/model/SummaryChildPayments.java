@@ -1,6 +1,7 @@
 package pl.kowalkowski.api.infrastructure.invoice.model;
 
 import lombok.Builder;
+
 import java.math.BigDecimal;
 import java.util.List;
 

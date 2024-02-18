@@ -1,7 +1,7 @@
 package pl.kowalkowski.api.infrastructure.attendance;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 import java.time.LocalDateTime;

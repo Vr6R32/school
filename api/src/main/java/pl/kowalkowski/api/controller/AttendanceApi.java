@@ -5,7 +5,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceDTO;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceResponse;
 import pl.kowalkowski.api.infrastructure.attendance.NewAttendanceRequest;
@@ -14,7 +17,7 @@ import java.time.Month;
 import java.util.List;
 import java.util.UUID;
 
-public interface AttendanceApi {
+interface AttendanceApi {
 
     @Operation(summary = "Create New Attendance",
             description = "Creates a new attendance record based on the provided request.")

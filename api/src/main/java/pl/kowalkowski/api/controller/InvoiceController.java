@@ -15,7 +15,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/invoices")
-public class InvoiceController implements InvoiceApi {
+class InvoiceController implements InvoiceApi {
 
     private final InvoiceFacade invoiceFacade;
 

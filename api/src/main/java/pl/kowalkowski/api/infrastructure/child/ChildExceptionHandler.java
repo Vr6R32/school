@@ -12,6 +12,6 @@ class ChildExceptionHandler {
     @ExceptionHandler(ChildException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ChildResponse handleChildException(ChildException ex) {
-        return new ChildResponse(ex.getMessage(),HttpStatus.BAD_REQUEST, null);
+        return new ChildResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, null);
     }
 }

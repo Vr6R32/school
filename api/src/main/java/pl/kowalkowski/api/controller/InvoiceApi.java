@@ -12,7 +12,7 @@ import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceSchoolDTO;
 import java.time.Month;
 import java.util.UUID;
 
-public interface InvoiceApi {
+interface InvoiceApi {
 
     @Operation(summary = "Get Invoice for School by ID and Period",
             description = "Returns an Invoice summary for a school based on provided ID, month, and year.")

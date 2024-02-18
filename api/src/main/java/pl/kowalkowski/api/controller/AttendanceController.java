@@ -20,17 +20,17 @@ class AttendanceController implements AttendanceApi {
     private final AttendanceFacade attendanceFacade;
 
     @PostMapping
-    public AttendanceResponse createNewAttendance(@Valid @RequestBody NewAttendanceRequest request){
+    public AttendanceResponse createNewAttendance(@Valid @RequestBody NewAttendanceRequest request) {
         return attendanceFacade.createNewAttendance(request);
     }
 
     @GetMapping("school")
-    public List<AttendanceDTO> getAttendancesForSchoolByIdAndPeriod(UUID schoolId, Month month, int year){
-        return attendanceFacade.getAttendancesForSchoolByIdAndPeriod(schoolId,month,year);
+    public List<AttendanceDTO> getAttendancesForSchoolByIdAndPeriod(UUID schoolId, Month month, int year) {
+        return attendanceFacade.getAttendancesForSchoolByIdAndPeriod(schoolId, month, year);
     }
 
     @GetMapping("parent")
-    public List<AttendanceDTO> getAttendancesForParentByIdAndPeriod(UUID parentId, Month month, int year){
-        return attendanceFacade.getAttendancesForParentByIdAndPeriod(parentId,month,year);
+    public List<AttendanceDTO> getAttendancesForParentByIdAndPeriod(UUID parentId, Month month, int year) {
+        return attendanceFacade.getAttendancesForParentByIdAndPeriod(parentId, month, year);
     }
 }

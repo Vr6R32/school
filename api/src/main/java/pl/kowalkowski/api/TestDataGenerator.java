@@ -2,8 +2,14 @@ package pl.kowalkowski.api;
 
 import com.github.javafaker.Faker;
 import org.springframework.stereotype.Component;
-import pl.kowalkowski.api.domain.*;
-import pl.kowalkowski.api.persistance.*;
+import pl.kowalkowski.api.domain.Attendance;
+import pl.kowalkowski.api.domain.Child;
+import pl.kowalkowski.api.domain.Parent;
+import pl.kowalkowski.api.domain.School;
+import pl.kowalkowski.api.persistance.AttendanceRepository;
+import pl.kowalkowski.api.persistance.ChildRepository;
+import pl.kowalkowski.api.persistance.ParentRepository;
+import pl.kowalkowski.api.persistance.SchoolRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -31,7 +37,7 @@ public class TestDataGenerator {
         this.parentRepository = parentRepository;
     }
 
-//    @PostConstruct
+    //    @PostConstruct
     public void generateTestData() {
         //TODO just uncomment @PostConstruct annotation to generate more example data
         generateParents();
@@ -47,7 +53,7 @@ public class TestDataGenerator {
             Parent parent = Parent.builder()
                     .firstname(faker.name().firstName())
                     .lastname(faker.name().lastName())
-                    .birthDay(generateRandomBirthDate(1973,1998))
+                    .birthDay(generateRandomBirthDate(1973, 1998))
                     .build();
             parents.add(parent);
         }
@@ -61,7 +67,7 @@ public class TestDataGenerator {
         for (int i = 1; i <= 3; i++) {
             School school = School.builder()
                     .name(faker.company().industry() + " School")
-                    .hourPrice(BigDecimal.valueOf(random.nextInt(10,30)))
+                    .hourPrice(BigDecimal.valueOf(random.nextInt(10, 30)))
                     .build();
             schools.add(school);
         }
@@ -85,8 +91,8 @@ public class TestDataGenerator {
                     .firstname(faker.name().firstName())
                     .lastname(faker.name().lastName())
                     .school(school)
-                    .parents(Set.of(parent,parent2))
-                    .birthDay(generateRandomBirthDate(2015,2020))
+                    .parents(Set.of(parent, parent2))
+                    .birthDay(generateRandomBirthDate(2015, 2020))
                     .build();
             childrens.add(child);
         }

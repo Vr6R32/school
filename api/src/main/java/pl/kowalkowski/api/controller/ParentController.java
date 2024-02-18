@@ -14,13 +14,13 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/parents")
-public class ParentController {
+class ParentController {
 
     private final ParentFacade parentFacade;
 
 
     @GetMapping("all")
-    public List<ParentDTO> getAllParents(){
+    public List<ParentDTO> getAllParents() {
         return parentFacade.getAllParents();
     }
 

@@ -13,7 +13,7 @@ public class AttendanceServiceFactory {
 
     public static AttendanceService createAttendanceService(AttendanceRepository attendanceRepository,
                                                             ChildFacade childFacade, SchoolFacade schoolFacade, ParentFacade parentFacade) {
-        return new AttendanceServiceImpl(attendanceRepository, childFacade,schoolFacade,parentFacade);
+        return new AttendanceServiceImpl(attendanceRepository, childFacade, schoolFacade, parentFacade);
     }
 
 }

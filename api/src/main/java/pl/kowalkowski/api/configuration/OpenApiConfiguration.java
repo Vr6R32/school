@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class OpenApiConfiguration {
+class OpenApiConfiguration {
     private static final String SITE_URL = "https://mk.pl/";
 
     @Value("${spring.application.name}")

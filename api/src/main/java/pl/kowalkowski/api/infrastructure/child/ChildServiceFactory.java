@@ -10,6 +10,6 @@ public class ChildServiceFactory {
     }
 
     public static ChildService createChildService(ChildRepository childRepository, SchoolFacade schoolFacade, ParentFacade parentFacade) {
-        return new ChildServiceImpl(childRepository,schoolFacade,parentFacade);
+        return new ChildServiceImpl(childRepository, schoolFacade, parentFacade);
     }
 }
