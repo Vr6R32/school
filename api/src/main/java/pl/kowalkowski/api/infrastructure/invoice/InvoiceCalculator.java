@@ -72,12 +72,12 @@ public class InvoiceCalculator {
                     List<AttendanceDTO> childAttendances = entry.getValue();
 
                     SummaryTotalChildPaymentHours totalPaymentForChild = calculateTotalChildrenPayment(childAttendances);
-                    int hoursSpent = calculateTotalHoursSpent(childAttendances);
+                    int totalMinutesSpent = calculateTotalMinutesSpent(childAttendances);
 
                     return InvoiceChildSummaryDTO.builder()
                             .child(child)
                             .totalPayment(totalPaymentForChild.totalPayment())
-                            .minutesSpent(hoursSpent)
+                            .totalMinutesSpent(totalMinutesSpent)
                             .payHours(totalPaymentForChild.totalBillableHours())
                             .attendancesCount(totalPaymentForChild.totalAttendances())
                             .build();
@@ -87,7 +87,7 @@ public class InvoiceCalculator {
     }
 
 
-    private int calculateTotalHoursSpent(List<AttendanceDTO> attendanceList) {
+    int calculateTotalMinutesSpent(List<AttendanceDTO> attendanceList) {
         return attendanceList.stream()
                 .mapToInt(this::totalMinutesSpent)
                 .sum();
@@ -118,7 +118,7 @@ public class InvoiceCalculator {
         return hourPrice.multiply(BigDecimal.valueOf(billableHours)).setScale(2, RoundingMode.HALF_UP);
     }
 
-    private int totalMinutesSpent(AttendanceDTO attendance) {
+    int totalMinutesSpent(AttendanceDTO attendance) {
         return (int) attendance.entryDate().until(attendance.exitDate(), ChronoUnit.MINUTES);
     }
 
