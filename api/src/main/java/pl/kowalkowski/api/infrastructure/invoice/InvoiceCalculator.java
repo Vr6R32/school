@@ -80,6 +80,7 @@ public class InvoiceCalculator {
                             .totalPayment(totalPaymentForChild.totalPayment())
                             .hoursSpent(hoursSpent)
                             .payHours(totalPaymentForChild.totalBillableHours())
+                            .attendancesCount(totalPaymentForChild.totalAttendances())
                             .build();
 
                 })
