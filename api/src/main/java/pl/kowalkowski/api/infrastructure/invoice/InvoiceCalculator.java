@@ -1,6 +1,7 @@
 package pl.kowalkowski.api.infrastructure.invoice;
 
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceDTO;
+import pl.kowalkowski.api.infrastructure.attendance.AttendanceNoRelationDTO;
 import pl.kowalkowski.api.infrastructure.child.ChildDTO;
 import pl.kowalkowski.api.infrastructure.invoice.model.*;
 import pl.kowalkowski.api.infrastructure.parent.ParentDTO;
@@ -13,6 +14,8 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static pl.kowalkowski.api.infrastructure.attendance.AttendanceMapper.mapAttendanceListToDTOListNoRelations;
 
 public class InvoiceCalculator {
 
@@ -74,12 +77,15 @@ public class InvoiceCalculator {
                     SummaryTotalChildPaymentHours totalPaymentForChild = calculateTotalChildrenPayment(childAttendances);
                     int totalMinutesSpent = calculateTotalMinutesSpent(childAttendances);
 
+                    List<AttendanceNoRelationDTO> noRelationAttendances = mapAttendanceListToDTOListNoRelations(childAttendances);
+
                     return InvoiceChildSummaryDTO.builder()
                             .child(child)
                             .totalPayment(totalPaymentForChild.totalPayment())
                             .totalMinutesSpent(totalMinutesSpent)
                             .payHours(totalPaymentForChild.totalBillableHours())
                             .attendancesCount(totalPaymentForChild.totalAttendances())
+                            .attendances(noRelationAttendances)
                             .build();
 
                 })
