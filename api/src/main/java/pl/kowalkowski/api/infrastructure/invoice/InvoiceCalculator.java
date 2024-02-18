@@ -80,7 +80,6 @@ public class InvoiceCalculator {
                             .totalPayment(totalPaymentForChild.totalPayment())
                             .hoursSpent(hoursSpent)
                             .payHours(totalPaymentForChild.totalBillableHours())
-                            .attendancesCount(totalPaymentForChild.totalAttendances())
                             .build();
 
                 })
@@ -118,6 +117,7 @@ public class InvoiceCalculator {
         BigDecimal hourPrice = attendance.child().school().hourPrice();
         return hourPrice.multiply(BigDecimal.valueOf(billableHours)).setScale(2, RoundingMode.HALF_UP);
     }
+
     private int hoursSpent(AttendanceDTO attendance) {
         long minutesSpent = attendance.entryDate().until(attendance.exitDate(), ChronoUnit.MINUTES);
         return (int) Math.ceil(minutesSpent / 60.0);
