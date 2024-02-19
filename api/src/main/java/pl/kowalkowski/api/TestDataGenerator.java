@@ -37,7 +37,7 @@ public class TestDataGenerator {
         this.parentRepository = parentRepository;
     }
 
-    //    @PostConstruct
+//        @PostConstruct
     public void generateTestData() {
         //TODO just uncomment @PostConstruct annotation to generate more example data
         generateParents();
@@ -47,7 +47,7 @@ public class TestDataGenerator {
     }
 
     private void generateParents() {
-        List<Parent> parents = new ArrayList<>();
+        List<Parent> parents = new LinkedList<>();
 
         for (int i = 1; i <= 10; i++) {
             Parent parent = Parent.builder()
@@ -62,7 +62,7 @@ public class TestDataGenerator {
     }
 
     private void generateSchools() {
-        List<School> schools = new ArrayList<>();
+        List<School> schools = new LinkedList<>();
 
         for (int i = 1; i <= 3; i++) {
             School school = School.builder()
@@ -108,36 +108,34 @@ public class TestDataGenerator {
     }
 
     private void generateAttendanceRecords() {
-        List<Attendance> attendanceRecords = new ArrayList<>();
+        List<Attendance> attendanceRecords = new LinkedList<>();
         List<Child> children = childRepository.findAll();
 
-        LocalDate currentDate = LocalDate.of(2023, 1, 1);
-        LocalDateTime currentDateTime = LocalDateTime.of(currentDate, LocalTime.of(6, 0));
+        LocalDateTime currentDateTime = LocalDateTime.of(LocalDate.of(2023, 1, 1), LocalTime.of(6, 0));
 
         for (int i = 1; i <= 730; i++) {
             Child child = children.get(i % children.size());
 
-            int entryHour = random.nextInt(11) + 6;
-            int exitHour = entryHour + random.nextInt(6) + 1;
-
-            LocalDateTime entryDateTime = currentDateTime.withHour(entryHour).withMinute(random.nextInt(60));
-            LocalDateTime exitDateTime = currentDateTime.withHour(exitHour).withMinute(random.nextInt(60));
+            LocalDateTime entryDateTime = currentDateTime;
+            LocalDateTime exitDateTime = currentDateTime;
 
             int randomAttendances = random.nextInt(3, 12);
 
             for (int j = 1; j <= randomAttendances; j++) {
+                int randomEntryHour = random.nextInt(5, 14);
+                int randomExitHour = randomEntryHour + random.nextInt(2, 7);
+                int randomMinute = random.nextInt(60);
+                LocalDateTime entryDateTimeNextDay = entryDateTime.plusDays(j).withHour(randomEntryHour).withMinute(randomMinute);
+                LocalDateTime exitDateTimeNextDay = exitDateTime.plusDays(j).withHour(randomExitHour).withMinute(randomMinute);
 
-                LocalDateTime entryDateTimeNextDay = entryDateTime.plusDays(j).withHour(entryDateTime.getHour()).withMinute(entryDateTime.getMinute());
-                LocalDateTime exitDateTimeNextDay = exitDateTime.plusDays(j).withHour(exitDateTime.getHour()).withMinute(exitDateTime.getMinute());
-                Attendance additionalAttendance = Attendance.builder()
+                Attendance attendance = Attendance.builder()
                         .child(child)
                         .entryDate(entryDateTimeNextDay)
                         .exitDate(exitDateTimeNextDay)
                         .build();
 
-                attendanceRecords.add(additionalAttendance);
+                attendanceRecords.add(attendance);
             }
-
 
             currentDateTime = currentDateTime.plusDays(1);
         }
