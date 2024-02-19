@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 class InvoiceCalculatorTest {
 
     @ParameterizedTest
-    @MethodSource("provideTestDataForMorningPayment")
+    @MethodSource("provide_Test_Data_For_Morning_Payment")
     void should_bill_morning_hours(LocalTime entryTime, LocalTime exitTime, long expectedBillableHours) {
         //given
         InvoiceCalculator invoiceCalculator = spy(new InvoiceCalculator());
@@ -37,7 +37,7 @@ class InvoiceCalculatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideTestDataForAfternoonPayment")
+    @MethodSource("provide_Test_Data_For_Afternoon_Payment")
     void should_bill_afternoon_hours(LocalTime entryTime, LocalTime exitTime, long expectedBillableHours) {
         //given
         InvoiceCalculator invoiceCalculator = spy(new InvoiceCalculator());
@@ -53,7 +53,7 @@ class InvoiceCalculatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideTestDataForBothMorningAndAfternoonPayment")
+    @MethodSource("provide_Test_Data_For_Both_Morning_And_Afternoon_Payment")
     void should_bill_morning_and_afternoon_hours(LocalTime entryTime, LocalTime exitTime, long expectedBillableHours) {
         //given
         InvoiceCalculator invoiceCalculator = spy(new InvoiceCalculator());
@@ -69,7 +69,7 @@ class InvoiceCalculatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideTestDataForFreePeriod")
+    @MethodSource("provide_Test_Data_For_Free_Period")
     void should_not_bill_free_period(LocalTime entryTime, LocalTime exitTime) {
         //given
         InvoiceCalculator invoiceCalculator = spy(new InvoiceCalculator());
@@ -84,7 +84,7 @@ class InvoiceCalculatorTest {
         verify(invoiceCalculator, times(0)).getAfterNoonPayHours(any());
     }
 
-    private static Stream<Arguments> provideTestDataForMorningPayment() {
+    private static Stream<Arguments> provide_Test_Data_For_Morning_Payment() {
         return Stream.of(
                 Arguments.of(LocalTime.of(6, 24), LocalTime.of(10, 32), 1),
                 Arguments.of(LocalTime.of(5, 59), LocalTime.of(11, 59), 2),
@@ -93,7 +93,7 @@ class InvoiceCalculatorTest {
         );
     }
 
-    private static Stream<Arguments> provideTestDataForAfternoonPayment() {
+    private static Stream<Arguments> provide_Test_Data_For_Afternoon_Payment() {
         return Stream.of(
                 Arguments.of(LocalTime.of(12, 1), LocalTime.of(14, 59), 3),
                 Arguments.of(LocalTime.of(13, 38), LocalTime.of(16, 24), 5),
@@ -102,7 +102,7 @@ class InvoiceCalculatorTest {
         );
     }
 
-    private static Stream<Arguments> provideTestDataForBothMorningAndAfternoonPayment() {
+    private static Stream<Arguments> provide_Test_Data_For_Both_Morning_And_Afternoon_Payment() {
         return Stream.of(
                 Arguments.of(LocalTime.of(6, 59), LocalTime.of(12, 1), 2),
                 Arguments.of(LocalTime.of(6, 0), LocalTime.of(13, 54), 3),
@@ -111,7 +111,7 @@ class InvoiceCalculatorTest {
         );
     }
 
-    private static Stream<Arguments> provideTestDataForFreePeriod() {
+    private static Stream<Arguments> provide_Test_Data_For_Free_Period() {
         return Stream.of(
                 Arguments.of(LocalTime.of(7, 1), LocalTime.of(12, 0)),
                 Arguments.of(LocalTime.of(7, 0), LocalTime.of(12, 0)),
@@ -121,7 +121,7 @@ class InvoiceCalculatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideTestDataForTotalMinutesSpent")
+    @MethodSource("provide_Test_Data_For_Attendance_List_Total_Minutes_Spent")
     void should_calculate_total_minutes_spent(List<AttendanceDTO> attendanceList, int expectedTotalMinutesSpent) {
         // given
         InvoiceCalculator invoiceCalculator = new InvoiceCalculator();
@@ -134,7 +134,7 @@ class InvoiceCalculatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideTestDataForSingleAttendanceTotalMinutesSpent")
+    @MethodSource("provide_Test_Data_For_Single_Attendance_Total_Minutes_Spent")
     void should_calculate_total_minutes_spent_for_single_attendance(AttendanceDTO attendance, int expectedTotalMinutesSpent) {
         // given
         InvoiceCalculator invoiceCalculator = new InvoiceCalculator();
@@ -146,7 +146,7 @@ class InvoiceCalculatorTest {
         assertEquals(expectedTotalMinutesSpent, totalMinutesSpent);
     }
 
-    private static Stream<Arguments> provideTestDataForTotalMinutesSpent() {
+    private static Stream<Arguments> provide_Test_Data_For_Attendance_List_Total_Minutes_Spent() {
         return Stream.of(
                 Arguments.of(Arrays.asList(
                         createAttendance(LocalTime.of(8, 0), LocalTime.of(12, 0)),
@@ -169,7 +169,7 @@ class InvoiceCalculatorTest {
         );
     }
 
-    private static Stream<Arguments> provideTestDataForSingleAttendanceTotalMinutesSpent() {
+    private static Stream<Arguments> provide_Test_Data_For_Single_Attendance_Total_Minutes_Spent() {
         return Stream.of(
                 Arguments.of(createAttendance(LocalTime.of(8, 0), LocalTime.of(12, 0)), 240),
                 Arguments.of(createAttendance(LocalTime.of(9, 0), LocalTime.of(11, 0)), 120),
