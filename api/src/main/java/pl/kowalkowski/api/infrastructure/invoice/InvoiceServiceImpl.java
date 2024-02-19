@@ -10,6 +10,8 @@ import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceResponse;
 import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceSchoolDTO;
 
 import java.time.Month;
+import java.time.Period;
+import java.time.Year;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,18 +24,18 @@ class InvoiceServiceImpl implements InvoiceService {
 
 
     @Override
-    public InvoiceResponse<InvoiceParentDTO> getInvoiceForParentByIdAndPeriod(UUID parentId, Month month, int year) {
+    public InvoiceResponse<InvoiceParentDTO> getInvoiceForParentByIdAndPeriod(UUID parentId, Month month, Year year) {
         List<AttendanceDTO> attendances = attendanceFacade.getAttendancesForParentByIdAndPeriod(parentId, month, year);
-        InvoiceParentDTO invoiceParentDTO = invoiceCalculator.calculateParentSummary(attendances);
+        InvoiceParentDTO invoiceParentDTO = invoiceCalculator.calculateParentSummary(attendances,month,year);
 
         log.info("[INVOICE-SERVICE] -> REQUESTED INVOICE BY PARENT WITH ID [{}] FOR PERIOD -> YEAR: [{}] MONTH: [{}]", parentId, year, month);
         return new InvoiceResponse<>("INVOICE GENERATED", HttpStatus.OK, invoiceParentDTO);
     }
 
     @Override
-    public InvoiceResponse<InvoiceSchoolDTO> getInvoiceForSchoolByIdAndPeriod(UUID schoolId, Month month, int year) {
+    public InvoiceResponse<InvoiceSchoolDTO> getInvoiceForSchoolByIdAndPeriod(UUID schoolId, Month month, Year year) {
         List<AttendanceDTO> attendances = attendanceFacade.getAttendancesForSchoolByIdAndPeriod(schoolId, month, year);
-        InvoiceSchoolDTO invoiceSchoolDTO = invoiceCalculator.calculateSchoolSummary(attendances);
+        InvoiceSchoolDTO invoiceSchoolDTO = invoiceCalculator.calculateSchoolSummary(attendances,month,year);
 
         log.info("[INVOICE-SERVICE] -> REQUESTED INVOICE BY SCHOOL WITH ID [{}] FOR PERIOD -> YEAR: [{}] MONTH: [{}]", schoolId, year, month);
         return new InvoiceResponse<>("INVOICE GENERATED", HttpStatus.OK, invoiceSchoolDTO);

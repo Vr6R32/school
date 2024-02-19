@@ -14,6 +14,7 @@ import pl.kowalkowski.api.infrastructure.attendance.AttendanceResponse;
 import pl.kowalkowski.api.infrastructure.attendance.NewAttendanceRequest;
 
 import java.time.Month;
+import java.time.Year;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +38,7 @@ interface AttendanceApi {
     List<AttendanceDTO> getAttendancesForSchoolByIdAndPeriod(
             @Parameter(description = "School ID", required = true) @RequestParam UUID schoolId,
             @Parameter(description = "Month", required = true) @RequestParam Month month,
-            @Parameter(description = "Year", required = true) @RequestParam int year);
+            @Parameter(description = "Year", required = true) @RequestParam Year year);
 
     @Operation(summary = "Get Attendances for Parent by ID and Period",
             description = "Returns a list of attendance records for a parent based on provided ID, month, and year.")
@@ -50,5 +51,5 @@ interface AttendanceApi {
     List<AttendanceDTO> getAttendancesForParentByIdAndPeriod(
             @Parameter(description = "Parent ID", required = true) @RequestParam UUID parentId,
             @Parameter(description = "Month", required = true) @RequestParam Month month,
-            @Parameter(description = "Year", required = true) @RequestParam int year);
+            @Parameter(description = "Year", required = true) @RequestParam Year year);
 }

@@ -10,6 +10,7 @@ import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceResponse;
 import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceSchoolDTO;
 
 import java.time.Month;
+import java.time.Year;
 import java.util.UUID;
 
 @RestController
@@ -21,13 +22,13 @@ class InvoiceController implements InvoiceApi {
 
     @Override
     @GetMapping("school")
-    public InvoiceResponse<InvoiceSchoolDTO> getInvoiceForSchoolByIdAndPeriod(UUID schoolId, Month month, int year) {
+    public InvoiceResponse<InvoiceSchoolDTO> getInvoiceForSchoolByIdAndPeriod(UUID schoolId, Month month, Year year) {
         return invoiceFacade.getInvoiceForSchoolByIdAndPeriod(schoolId, month, year);
     }
 
     @Override
     @GetMapping("parent")
-    public InvoiceResponse<InvoiceParentDTO> getInvoiceForParentByIdAndPeriod(UUID parentId, Month month, int year) {
+    public InvoiceResponse<InvoiceParentDTO> getInvoiceForParentByIdAndPeriod(UUID parentId, Month month, Year year) {
         return invoiceFacade.getInvoiceForParentByIdAndPeriod(parentId, month, year);
     }
 }

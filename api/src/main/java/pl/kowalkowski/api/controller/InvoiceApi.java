@@ -11,6 +11,7 @@ import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceResponse;
 import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceSchoolDTO;
 
 import java.time.Month;
+import java.time.Year;
 import java.util.UUID;
 
 interface InvoiceApi {
@@ -26,7 +27,7 @@ interface InvoiceApi {
     InvoiceResponse<InvoiceSchoolDTO> getInvoiceForSchoolByIdAndPeriod(
             @Parameter(description = "ID of the school") @RequestParam UUID schoolId,
             @Parameter(description = "Month for the invoice") @RequestParam Month month,
-            @Parameter(description = "Year for the invoice") @RequestParam int year);
+            @Parameter(description = "Year for the invoice") @RequestParam Year year);
 
     @Operation(summary = "Get Invoice for Parent by ID and Period",
             description = "Returns an Invoice summary for a parent based on provided ID, month, and year.")
@@ -39,5 +40,5 @@ interface InvoiceApi {
     InvoiceResponse<InvoiceParentDTO> getInvoiceForParentByIdAndPeriod(
             @Parameter(description = "ID of the parent") @RequestParam UUID parentId,
             @Parameter(description = "Month for the invoice") @RequestParam Month month,
-            @Parameter(description = "Year for the invoice") @RequestParam int year);
+            @Parameter(description = "Year for the invoice") @RequestParam Year year);
 }

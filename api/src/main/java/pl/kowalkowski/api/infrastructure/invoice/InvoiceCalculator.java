@@ -11,6 +11,8 @@ import pl.kowalkowski.api.infrastructure.school.SchoolException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalTime;
+import java.time.Month;
+import java.time.Year;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,7 +25,7 @@ public class InvoiceCalculator {
     private static final LocalTime FREE_PERIOD_END = LocalTime.of(12, 0);
 
 
-    public InvoiceSchoolDTO calculateSchoolSummary(List<AttendanceDTO> attendanceList) {
+    public InvoiceSchoolDTO calculateSchoolSummary(List<AttendanceDTO> attendanceList, Month month, Year year) {
 
         SchoolDTO school = attendanceList.stream()
                 .findFirst()
@@ -33,13 +35,15 @@ public class InvoiceCalculator {
         SummaryChildPayments payments = getSummaryPayments(attendanceList);
 
         return InvoiceSchoolDTO.builder()
+                .month(month)
+                .year(year)
                 .school(school)
                 .totalPayment(payments.totalPayment())
                 .childrenPayments(payments.childrenPayments())
                 .build();
     }
 
-    public InvoiceParentDTO calculateParentSummary(List<AttendanceDTO> attendanceList) {
+    public InvoiceParentDTO calculateParentSummary(List<AttendanceDTO> attendanceList, Month month, Year year) {
 
         Set<ParentDTO> parents = new HashSet<>(attendanceList.stream()
                 .findFirst()
@@ -49,6 +53,8 @@ public class InvoiceCalculator {
         SummaryChildPayments payments = getSummaryPayments(attendanceList);
 
         return InvoiceParentDTO.builder()
+                .month(month)
+                .year(year)
                 .parents(parents)
                 .totalPayment(payments.totalPayment())
                 .childrenPayments(payments.childrenPayments())

@@ -7,6 +7,7 @@ import pl.kowalkowski.api.infrastructure.attendance.AttendanceService;
 import pl.kowalkowski.api.infrastructure.attendance.NewAttendanceRequest;
 
 import java.time.Month;
+import java.time.Year;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,13 +20,15 @@ public class AttendanceFacade {
         return attendanceService.createNewAttendance(request);
     }
 
-    public List<AttendanceDTO> getAttendancesForSchoolByIdAndPeriod(UUID schoolId, Month month, int year) {
+    public List<AttendanceDTO> getAttendancesForSchoolByIdAndPeriod(UUID schoolId, Month month, Year year) {
         int integerMonth = month.getValue();
-        return attendanceService.getAttendancesForSchoolByIdAndPeriod(schoolId, integerMonth, year);
+        int integerYear = year.getValue();
+        return attendanceService.getAttendancesForSchoolByIdAndPeriod(schoolId, integerMonth, integerYear);
     }
 
-    public List<AttendanceDTO> getAttendancesForParentByIdAndPeriod(UUID parentId, Month month, int year) {
+    public List<AttendanceDTO> getAttendancesForParentByIdAndPeriod(UUID parentId, Month month, Year year) {
         int integerMonth = month.getValue();
-        return attendanceService.getAttendancesForParentByIdAndPeriod(parentId, integerMonth, year);
+        int integerYear = year.getValue();
+        return attendanceService.getAttendancesForParentByIdAndPeriod(parentId, integerMonth, integerYear);
     }
 }
