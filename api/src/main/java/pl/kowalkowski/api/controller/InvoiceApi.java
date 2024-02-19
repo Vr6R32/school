@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceParentDTO;
 import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceResponse;
@@ -20,8 +21,8 @@ interface InvoiceApi {
             @ApiResponse(responseCode = "200", description = "Successful retrieval of Invoice for School"),
             @ApiResponse(responseCode = "400", description = "School not found"),
             @ApiResponse(responseCode = "400", description = "Attendances not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
+    @GetMapping("school")
     InvoiceResponse<InvoiceSchoolDTO> getInvoiceForSchoolByIdAndPeriod(
             @Parameter(description = "ID of the school") @RequestParam UUID schoolId,
             @Parameter(description = "Month for the invoice") @RequestParam Month month,
@@ -33,8 +34,8 @@ interface InvoiceApi {
             @ApiResponse(responseCode = "200", description = "Successful retrieval of Invoice for Parent"),
             @ApiResponse(responseCode = "400", description = "Parent not found"),
             @ApiResponse(responseCode = "400", description = "Attendances not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
+    @GetMapping("parent")
     InvoiceResponse<InvoiceParentDTO> getInvoiceForParentByIdAndPeriod(
             @Parameter(description = "ID of the parent") @RequestParam UUID parentId,
             @Parameter(description = "Month for the invoice") @RequestParam Month month,
