@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kowalkowski.api.facade.InvoiceFacade;
-import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceParentDTO;
-import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceResponse;
-import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceSchoolDTO;
+import pl.kowalkowski.api.infrastructure.invoice.model.*;
 
 import java.time.Month;
 import java.time.Year;
@@ -20,15 +18,9 @@ class InvoiceController implements InvoiceApi {
 
     private final InvoiceFacade invoiceFacade;
 
-    @Override
-    @GetMapping("school")
-    public InvoiceResponse<InvoiceSchoolDTO> getInvoiceForSchoolByIdAndPeriod(UUID schoolId, Month month, Year year) {
-        return invoiceFacade.getInvoiceForSchoolByIdAndPeriod(schoolId, month, year);
+    @GetMapping
+    public InvoiceResponse<InvoiceDTO> generateClientSummaryInvoice(UUID clientId, Month month, Year year, ClientType clientType) {
+        return invoiceFacade.generateClientSummaryInvoice(clientId, month, year, clientType);
     }
 
-    @Override
-    @GetMapping("parent")
-    public InvoiceResponse<InvoiceParentDTO> getInvoiceForParentByIdAndPeriod(UUID parentId, Month month, Year year) {
-        return invoiceFacade.getInvoiceForParentByIdAndPeriod(parentId, month, year);
-    }
 }

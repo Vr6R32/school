@@ -5,6 +5,7 @@ import pl.kowalkowski.api.infrastructure.attendance.AttendanceDTO;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceResponse;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceService;
 import pl.kowalkowski.api.infrastructure.attendance.NewAttendanceRequest;
+import pl.kowalkowski.api.infrastructure.invoice.model.ClientType;
 
 import java.time.Month;
 import java.time.Year;
@@ -20,15 +21,7 @@ public class AttendanceFacade {
         return attendanceService.createNewAttendance(request);
     }
 
-    public List<AttendanceDTO> getAttendancesForSchoolByIdAndPeriod(UUID schoolId, Month month, Year year) {
-        int integerMonth = month.getValue();
-        int integerYear = year.getValue();
-        return attendanceService.getAttendancesForSchoolByIdAndPeriod(schoolId, integerMonth, integerYear);
-    }
-
-    public List<AttendanceDTO> getAttendancesForParentByIdAndPeriod(UUID parentId, Month month, Year year) {
-        int integerMonth = month.getValue();
-        int integerYear = year.getValue();
-        return attendanceService.getAttendancesForParentByIdAndPeriod(parentId, integerMonth, integerYear);
+    public List<AttendanceDTO> getClientAttendances(UUID clientId, Month month, Year year, ClientType clientType) {
+        return attendanceService.getClientAttendances(clientId, month, year, clientType);
     }
 }

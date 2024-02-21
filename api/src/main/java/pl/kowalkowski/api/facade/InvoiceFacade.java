@@ -2,9 +2,9 @@ package pl.kowalkowski.api.facade;
 
 import lombok.RequiredArgsConstructor;
 import pl.kowalkowski.api.infrastructure.invoice.InvoiceService;
-import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceParentDTO;
+import pl.kowalkowski.api.infrastructure.invoice.model.ClientType;
+import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceDTO;
 import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceResponse;
-import pl.kowalkowski.api.infrastructure.invoice.model.InvoiceSchoolDTO;
 
 import java.time.Month;
 import java.time.Year;
@@ -15,12 +15,8 @@ public class InvoiceFacade {
 
     private final InvoiceService invoiceService;
 
-    public InvoiceResponse<InvoiceSchoolDTO> getInvoiceForSchoolByIdAndPeriod(UUID schoolId, Month month, Year year) {
-        return invoiceService.getInvoiceForSchoolByIdAndPeriod(schoolId, month, year);
-    }
-
-    public InvoiceResponse<InvoiceParentDTO> getInvoiceForParentByIdAndPeriod(UUID parentId, Month month, Year year) {
-        return invoiceService.getInvoiceForParentByIdAndPeriod(parentId, month, year);
+    public InvoiceResponse<InvoiceDTO> generateClientSummaryInvoice(UUID clientId, Month month, Year year, ClientType clientType) {
+        return invoiceService.generateClientSummaryInvoice(clientId, month, year, clientType);
     }
 
 }

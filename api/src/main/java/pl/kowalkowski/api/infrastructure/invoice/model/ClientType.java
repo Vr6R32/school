@@ -1,4 +1,6 @@
 package pl.kowalkowski.api.infrastructure.invoice.model;
 
-public interface InvoiceDTO {
+public enum ClientType {
+    SCHOOL,
+    PARENT
 }

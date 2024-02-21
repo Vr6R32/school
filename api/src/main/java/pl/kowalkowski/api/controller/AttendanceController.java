@@ -7,6 +7,7 @@ import pl.kowalkowski.api.facade.AttendanceFacade;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceDTO;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceResponse;
 import pl.kowalkowski.api.infrastructure.attendance.NewAttendanceRequest;
+import pl.kowalkowski.api.infrastructure.invoice.model.ClientType;
 
 import java.time.Month;
 import java.time.Year;
@@ -25,13 +26,8 @@ class AttendanceController implements AttendanceApi {
         return attendanceFacade.createNewAttendance(request);
     }
 
-    @GetMapping("school")
-    public List<AttendanceDTO> getAttendancesForSchoolByIdAndPeriod(UUID schoolId, Month month, Year year) {
-        return attendanceFacade.getAttendancesForSchoolByIdAndPeriod(schoolId, month, year);
-    }
-
-    @GetMapping("parent")
-    public List<AttendanceDTO> getAttendancesForParentByIdAndPeriod(UUID parentId, Month month, Year year) {
-        return attendanceFacade.getAttendancesForParentByIdAndPeriod(parentId, month, year);
+    @GetMapping
+    public List<AttendanceDTO> getClientAttendances(UUID clientId, Month month, Year year, ClientType clientType) {
+        return attendanceFacade.getClientAttendances(clientId, month, year,clientType);
     }
 }

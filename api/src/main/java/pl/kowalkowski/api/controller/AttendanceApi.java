@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceDTO;
 import pl.kowalkowski.api.infrastructure.attendance.AttendanceResponse;
 import pl.kowalkowski.api.infrastructure.attendance.NewAttendanceRequest;
+import pl.kowalkowski.api.infrastructure.invoice.model.ClientType;
 
 import java.time.Month;
 import java.time.Year;
@@ -27,29 +28,19 @@ interface AttendanceApi {
     @PostMapping
     AttendanceResponse createNewAttendance(@Valid @RequestBody NewAttendanceRequest request);
 
-    @Operation(summary = "Get Attendances for School by ID and Period",
-            description = "Returns a list of attendance records for a school based on provided ID, month, and year.")
+    @Operation(summary = "Get Attendances for specified client by ID and Period",
+            description = "Returns a list of attendance records for a client based on provided ID, month, year and client type.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful retrieval of attendances for specified school"),
+            @ApiResponse(responseCode = "200", description = "Successful retrieval of attendances for specified client"),
             @ApiResponse(responseCode = "400", description = "School not found"),
-            @ApiResponse(responseCode = "400", description = "Attendances not found"),
-    })
-    @GetMapping("school")
-    List<AttendanceDTO> getAttendancesForSchoolByIdAndPeriod(
-            @Parameter(description = "School ID", required = true) @RequestParam UUID schoolId,
-            @Parameter(description = "Month", required = true) @RequestParam Month month,
-            @Parameter(description = "Year", required = true) @RequestParam Year year);
-
-    @Operation(summary = "Get Attendances for Parent by ID and Period",
-            description = "Returns a list of attendance records for a parent based on provided ID, month, and year.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful retrieval of attendances for specified parent"),
             @ApiResponse(responseCode = "400", description = "Parent not found"),
+            @ApiResponse(responseCode = "400", description = "Unsupported client type"),
             @ApiResponse(responseCode = "400", description = "Attendances not found"),
     })
-    @GetMapping("parent")
-    List<AttendanceDTO> getAttendancesForParentByIdAndPeriod(
-            @Parameter(description = "Parent ID", required = true) @RequestParam UUID parentId,
+    @GetMapping
+    List<AttendanceDTO> getClientAttendances(
+            @Parameter(description = "Client ID", required = true) @RequestParam UUID clientId,
             @Parameter(description = "Month", required = true) @RequestParam Month month,
-            @Parameter(description = "Year", required = true) @RequestParam Year year);
+            @Parameter(description = "Year", required = true) @RequestParam Year year,
+            @Parameter(description = "Client type", required = true) @RequestParam ClientType clientType);
 }
